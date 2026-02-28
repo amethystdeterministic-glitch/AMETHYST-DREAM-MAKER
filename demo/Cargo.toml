@@ -6,3 +6,4 @@ edition = "2024"
 [dependencies]
 odin_core = { path = "../core" }
 odin_subsystem = { path = "../subsystem" }
+serde_json = "1"

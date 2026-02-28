@@ -1,8 +1,10 @@
 mod brains;
 mod registry;
+mod tools;
 
 pub use brains::{BrainSpec, BrainOutput, make_brain_output, hash_text};
 pub use registry::BrainRegistry;
+pub use tools::{ToolCall, ToolResult, execute_tool_simulated};
 
 use odin_core::OdinCore;
 use serde::{Deserialize, Serialize};
@@ -68,4 +70,25 @@ pub fn syscall_submit_and_finalize(
         intent_id: intent.intent_id,
         finalized: true,
     })
+}
+
+/// Stage 6 syscall:
+/// - requires finalized intent_id
+/// - executes simulated tool
+/// - records execution receipt in Core ledger (authoritative)
+pub fn syscall_execute_tool_for_intent(
+    core: &mut OdinCore,
+    intent_id: &str,
+    call: &ToolCall,
+) -> Result<ToolResult, SubsystemError> {
+    let result = execute_tool_simulated(call);
+
+    core.record_execution_receipt(
+        intent_id,
+        &call.tool_name,
+        call.args.clone(),
+        &result.output_hash,
+    ).map_err(SubsystemError::CoreRejected)?;
+
+    Ok(result)
 }

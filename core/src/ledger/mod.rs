@@ -57,7 +57,6 @@ impl Ledger {
             payload,
         };
 
-        // Hash over canonical-ish bytes: entry with empty hash+sig fields.
         let bytes = serde_json::to_vec(&entry).unwrap();
         let mut hasher = Sha256::new();
         hasher.update(&bytes);
@@ -110,7 +109,7 @@ impl Ledger {
         true
     }
 
-    // -------- Lifecycle helpers (Stage 3) --------
+    // -------- Lifecycle helpers (Stage 3/6) --------
 
     pub fn has_kind_for_intent(&self, kind: &str, intent_id: &str) -> bool {
         self.entries.iter().any(|e| {
@@ -134,5 +133,9 @@ impl Ledger {
 
     pub fn finalized(&self, intent_id: &str) -> bool {
         self.has_kind_for_intent("finalize", intent_id)
+    }
+
+    pub fn executed(&self, intent_id: &str) -> bool {
+        self.has_kind_for_intent("execution_receipt", intent_id)
     }
 }

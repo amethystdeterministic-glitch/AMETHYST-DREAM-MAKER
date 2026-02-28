@@ -1,8 +1,10 @@
 use odin_core::OdinCore;
 use odin_subsystem::{
     BrainRegistry, BrainSpec, make_brain_output,
-    syscall_record_brain_output, syscall_submit_and_finalize
+    syscall_record_brain_output, syscall_submit_and_finalize,
+    ToolCall, syscall_execute_tool_for_intent
 };
+use serde_json::json;
 
 fn main() {
     println!("ODIN Demo Booting...");
@@ -35,11 +37,22 @@ fn main() {
     let out = make_brain_output("openclaw", input, "Suggested plan: create_app:demo_from_subsystem");
     syscall_record_brain_output(&mut core, &out).expect("record brain event");
 
-    // Subsystem syscall lifecycle
+    // Lifecycle: submit + finalize
     let receipt = syscall_submit_and_finalize(&mut core, "create_app:demo_from_subsystem")
-        .expect("subsystem syscall failed");
+        .expect("subsystem lifecycle failed");
+
+    // Tool mediation: execute simulated tool for finalized intent
+    let call = ToolCall {
+        tool_name: "forge_create_app".to_string(),
+        args: json!({"app":"demo_from_subsystem","template":"minimal"}),
+    };
+
+    let result = syscall_execute_tool_for_intent(&mut core, &receipt.intent_id, &call)
+        .expect("tool execution failed");
 
     println!("Receipt: intent_id={}, finalized={}", receipt.intent_id, receipt.finalized);
+    println!("Tool result hash: {}", result.output_hash);
+
     println!("Ledger entries: {}", core.ledger_len());
     println!("Chain valid: {}", core.chain_valid());
     println!("Core state: {:?}", core.state());

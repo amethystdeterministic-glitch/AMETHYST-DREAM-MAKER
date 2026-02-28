@@ -27,20 +27,14 @@ impl OdinCore {
         Self { authority, ledger, state }
     }
 
-    pub fn state(&self) -> CoreState {
-        self.state
-    }
+    pub fn state(&self) -> CoreState { self.state }
+    pub fn ledger_len(&self) -> usize { self.ledger.len() }
+    pub fn chain_valid(&self) -> bool { self.ledger.verify_chain(&self.authority) }
 
-    pub fn ledger_len(&self) -> usize {
-        self.ledger.len()
-    }
+    pub fn is_finalized(&self, intent_id: &str) -> bool { self.ledger.finalized(intent_id) }
+    pub fn is_executed(&self, intent_id: &str) -> bool { self.ledger.executed(intent_id) }
 
-    pub fn chain_valid(&self) -> bool {
-        self.ledger.verify_chain(&self.authority)
-    }
-
-    /// Advisory-only: record brain outputs as evidence, never as authority.
-    /// This does not create an Intent, does not TreeGate, does not Finalize.
+    /// Advisory-only: record brain outputs as evidence.
     pub fn record_brain_event(
         &mut self,
         brain_name: &str,
@@ -55,6 +49,38 @@ impl OdinCore {
                 "input_hash": input_hash,
                 "output_hash": output_hash,
                 "output_text": output_text
+            }),
+            &self.authority,
+            self.state
+        )?;
+
+        self.refresh_state();
+        Ok(())
+    }
+
+    /// Stage 6: record a tool execution receipt (authoritative evidence).
+    /// Requires finalized intent and single-shot execution.
+    pub fn record_execution_receipt(
+        &mut self,
+        intent_id: &str,
+        tool_name: &str,
+        args: serde_json::Value,
+        output_hash: &str,
+    ) -> Result<(), &'static str> {
+        if !self.ledger.finalized(intent_id) {
+            return Err("Execution blocked: intent not finalized");
+        }
+        if self.ledger.executed(intent_id) {
+            return Err("Execution blocked: already executed (single-shot)");
+        }
+
+        self.ledger.append_signed(
+            "execution_receipt",
+            json!({
+                "intent_id": intent_id,
+                "tool_name": tool_name,
+                "args": args,
+                "output_hash": output_hash
             }),
             &self.authority,
             self.state
@@ -124,7 +150,6 @@ impl OdinCore {
         if !self.ledger.treegate_passed(&intent.intent_id) {
             return Err("Finalize blocked: TreeGate not PASS");
         }
-
         if self.ledger.finalized(&intent.intent_id) {
             return Err("Finalize blocked: already finalized (single-shot)");
         }
