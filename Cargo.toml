@@ -4,6 +4,6 @@ members = [
     "core",
     "subsystem",
     "orchestrator"
-]
+, "amethystctl"]
 
 resolver = "2"

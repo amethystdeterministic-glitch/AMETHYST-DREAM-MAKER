@@ -1,3 +1,5 @@
+use crate::router::dispatch::call_brain;
+use crate::router::{select_brain, Brain};
 use serde_json::json;
 use sha2::{Digest, Sha256};
 use std::time::{SystemTime, UNIX_EPOCH};
@@ -213,6 +215,41 @@ impl OdinCore {
                 "role": format!("{:?}", audit.role),
                 "derived": audit.derived,
                 "required": audit.required
+            }),
+            &self.authority,
+            self.state
+        )?;
+
+        // ---- Stage 14: Deterministic Brain Selection ----
+        let selected_brain = select_brain(&intent.request);
+        let brain_str = match selected_brain {
+            Brain::Qwen => "qwen",
+            Brain::QwenCoder => "qwen_coder",
+        };
+        self.ledger.append_signed(
+            "brain_selection",
+            json!({
+                "intent_id": intent.intent_id,
+                "brain": brain_str
+            }),
+            &self.authority,
+            self.state
+        )?;
+
+        // ---- Stage 15: Controlled Brain Invocation ----
+        let response_text = call_brain(brain_str, &intent.request)
+            .map_err(|_| "Brain invocation failed")?;
+
+        let request_hash = blake3::hash(intent.request.as_bytes()).to_hex().to_string();
+        let response_hash = blake3::hash(response_text.as_bytes()).to_hex().to_string();
+
+        self.ledger.append_signed(
+            "brain_response",
+            json!({
+                "intent_id": intent.intent_id,
+                "brain": brain_str,
+                "request_hash": request_hash,
+                "response_hash": response_hash
             }),
             &self.authority,
             self.state
