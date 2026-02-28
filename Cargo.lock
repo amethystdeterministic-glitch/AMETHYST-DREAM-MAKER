@@ -809,13 +809,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "orchestrator"
-version = "0.1.0"
-dependencies = [
- "odin_subsystem",
-]
-
-[[package]]
 name = "percent-encoding"
 version = "2.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
