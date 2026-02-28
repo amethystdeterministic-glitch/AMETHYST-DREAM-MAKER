@@ -1,12 +1,9 @@
 use odin_core::OdinCore;
 
 fn main() {
-    println!("ODIN Core Booting...");
+    println!("ODIN Core Booting (persistent)...");
 
-    let mut core = OdinCore::boot_ephemeral();
-
-    println!("Boot chain valid: {}", core.chain_valid());
-    println!("Core state: {:?}", core.state());
+    let core = OdinCore::boot();
 
     println!("Ledger entries: {}", core.ledger_len());
     println!("Chain valid: {}", core.chain_valid());

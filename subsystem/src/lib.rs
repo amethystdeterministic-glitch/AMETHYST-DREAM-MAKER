@@ -1,6 +1,7 @@
 mod brains;
 mod registry;
 mod tools;
+pub mod api;
 
 pub use brains::{BrainSpec, BrainOutput, make_brain_output, hash_text};
 pub use registry::BrainRegistry;
@@ -33,8 +34,6 @@ pub fn normalize_request(input: &str) -> Result<String, SubsystemError> {
     Ok(s.to_string())
 }
 
-/// Advisory brain event: record in Core ledger as evidence.
-/// This does not advance lifecycle.
 pub fn syscall_record_brain_output(
     core: &mut OdinCore,
     output: &BrainOutput,
@@ -47,8 +46,6 @@ pub fn syscall_record_brain_output(
     ).map_err(SubsystemError::CoreRejected)
 }
 
-/// Canonical syscall boundary:
-/// normalize → submit intent → TreeGate PASS (placeholder) → finalize
 pub fn syscall_submit_and_finalize(
     core: &mut OdinCore,
     external_request: &str,
@@ -72,10 +69,6 @@ pub fn syscall_submit_and_finalize(
     })
 }
 
-/// Stage 6 syscall:
-/// - requires finalized intent_id
-/// - executes simulated tool
-/// - records execution receipt in Core ledger (authoritative)
 pub fn syscall_execute_tool_for_intent(
     core: &mut OdinCore,
     intent_id: &str,

@@ -1,57 +1,48 @@
 use odin_core::OdinCore;
 use odin_subsystem::{
     BrainRegistry, BrainSpec, make_brain_output,
-    syscall_record_brain_output, syscall_submit_and_finalize,
-    ToolCall, syscall_execute_tool_for_intent
+    ToolCall
 };
+use odin_subsystem::api;
 use serde_json::json;
 
 fn main() {
-    println!("ODIN Demo Booting...");
+    println!("ODIN Demo Booting (persistent)...");
 
-    let mut core = OdinCore::boot_ephemeral();
+    let mut core = OdinCore::boot();
     println!("Core state at boot: {:?}", core.state());
 
-    // Register brains (metadata only)
     let mut reg = BrainRegistry::new();
-    reg.register(BrainSpec {
-        name: "openclaw".to_string(),
-        kind: "planner".to_string(),
-        endpoint: "http://127.0.0.1:8090".to_string(),
-    });
-    reg.register(BrainSpec {
-        name: "qwen".to_string(),
-        kind: "language".to_string(),
-        endpoint: "http://127.0.0.1:8081".to_string(),
-    });
-    reg.register(BrainSpec {
-        name: "deepseek".to_string(),
-        kind: "coder".to_string(),
-        endpoint: "http://127.0.0.1:8082".to_string(),
-    });
-
+    reg.register(BrainSpec { name: "openclaw".into(), kind: "planner".into(), endpoint: "http://127.0.0.1:8090".into() });
+    reg.register(BrainSpec { name: "qwen".into(), kind: "language".into(), endpoint: "http://127.0.0.1:8081".into() });
+    reg.register(BrainSpec { name: "deepseek".into(), kind: "coder".into(), endpoint: "http://127.0.0.1:8082".into() });
     println!("Brains registered: {}", reg.list().len());
 
-    // Advisory brain output recorded as evidence
-    let input = "User asked to create app demo";
-    let out = make_brain_output("openclaw", input, "Suggested plan: create_app:demo_from_subsystem");
-    syscall_record_brain_output(&mut core, &out).expect("record brain event");
+    let out = make_brain_output("openclaw", "User asked to create app demo", "Suggested plan: create_app:demo_from_subsystem");
+    let _ = api::record_brain_evidence(&mut core, &out);
 
-    // Lifecycle: submit + finalize
-    let receipt = syscall_submit_and_finalize(&mut core, "create_app:demo_from_subsystem")
-        .expect("subsystem lifecycle failed");
+    let receipt = api::submit_intent_and_finalize(&mut core, "create_app:demo_from_subsystem");
+    if !receipt.ok {
+        println!("Receipt failed: {:?}", receipt.error);
+        return;
+    }
+    let receipt_val = receipt.value.unwrap();
 
-    // Tool mediation: execute simulated tool for finalized intent
     let call = ToolCall {
         tool_name: "forge_create_app".to_string(),
         args: json!({"app":"demo_from_subsystem","template":"minimal"}),
     };
 
-    let result = syscall_execute_tool_for_intent(&mut core, &receipt.intent_id, &call)
-        .expect("tool execution failed");
+    let tool = api::execute_tool_for_intent(&mut core, &receipt_val.intent_id, &call);
+    if tool.ok {
+        println!("Tool result hash: {}", tool.value.unwrap().output_hash);
+    } else {
+        println!("Tool failed: {:?}", tool.error);
+    }
 
-    println!("Receipt: intent_id={}, finalized={}", receipt.intent_id, receipt.finalized);
-    println!("Tool result hash: {}", result.output_hash);
+    let proof_path = "odin_proof_bundle.json";
+    let proof = api::export_proof_bundle_json(&core, proof_path, Some(&receipt_val.intent_id));
+    println!("Proof export ok={} path={}", proof.ok, proof_path);
 
     println!("Ledger entries: {}", core.ledger_len());
     println!("Chain valid: {}", core.chain_valid());

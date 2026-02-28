@@ -1,9 +1,13 @@
 use serde_json::json;
+use sha2::{Digest, Sha256};
+use std::time::{SystemTime, UNIX_EPOCH};
 
 use crate::authority::AuthorityRoot;
 use crate::ledger::Ledger;
 use crate::lifecycle::{Intent, TreeGate, Finalize};
 use crate::state::CoreState;
+use crate::query::{CoreSnapshot, IntentProofSlice};
+use crate::proof::ProofBundle;
 
 pub struct OdinCore {
     authority: AuthorityRoot,
@@ -12,13 +16,55 @@ pub struct OdinCore {
 }
 
 impl OdinCore {
-    pub fn boot_ephemeral() -> Self {
-        let authority = AuthorityRoot::new_ephemeral();
-        let mut ledger = Ledger::new();
+    pub fn boot() -> Self {
+        let authority = AuthorityRoot::load_or_create();
+
         let mut state = CoreState::Green;
 
-        ledger.append_signed("genesis", json!({"event": "genesis"}), &authority, state)
-            .expect("Genesis append failed");
+        let mut ledger = match Ledger::load(&authority) {
+            Ok(l) => l,
+            Err(_) => {
+                state = CoreState::Red;
+                Ledger::new_in_memory()
+            }
+        };
+
+        if state == CoreState::Green && ledger.len() == 0 {
+            ledger.append_signed("genesis", json!({"event":"genesis"}), &authority, state).ok();
+        }
+
+        if state == CoreState::Green {
+            let ts = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
+            let boot_hash = Self::compute_boot_hash();
+
+            ledger.append_signed(
+                "boot_receipt",
+                json!({ "timestamp": ts, "boot_hash": boot_hash }),
+                &authority,
+                state
+            ).ok();
+        }
+
+        if state == CoreState::Green && !ledger.verify_chain(&authority) {
+            state = CoreState::Red;
+        }
+
+        Self { authority, ledger, state }
+    }
+
+    fn compute_boot_hash() -> String {
+        let mut hasher = Sha256::new();
+        hasher.update(env!("CARGO_PKG_VERSION"));
+        hasher.update(std::env::consts::OS);
+        format!("{:x}", hasher.finalize())
+    }
+
+    pub fn boot_ephemeral() -> Self {
+        let authority = AuthorityRoot::load_or_create();
+        let mut ledger = Ledger::new_in_memory();
+        let mut state = CoreState::Green;
+
+        ledger.append_signed("genesis", json!({"event":"genesis"}), &authority, state).ok();
 
         if !ledger.verify_chain(&authority) {
             state = CoreState::Red;
@@ -34,7 +80,6 @@ impl OdinCore {
     pub fn is_finalized(&self, intent_id: &str) -> bool { self.ledger.finalized(intent_id) }
     pub fn is_executed(&self, intent_id: &str) -> bool { self.ledger.executed(intent_id) }
 
-    /// Advisory-only: record brain outputs as evidence.
     pub fn record_brain_event(
         &mut self,
         brain_name: &str,
@@ -53,13 +98,10 @@ impl OdinCore {
             &self.authority,
             self.state
         )?;
-
         self.refresh_state();
         Ok(())
     }
 
-    /// Stage 6: record a tool execution receipt (authoritative evidence).
-    /// Requires finalized intent and single-shot execution.
     pub fn record_execution_receipt(
         &mut self,
         intent_id: &str,
@@ -85,7 +127,6 @@ impl OdinCore {
             &self.authority,
             self.state
         )?;
-
         self.refresh_state();
         Ok(())
     }
@@ -103,7 +144,6 @@ impl OdinCore {
             &self.authority,
             self.state
         )?;
-
         self.refresh_state();
         Ok(intent)
     }
@@ -122,7 +162,6 @@ impl OdinCore {
             &self.authority,
             self.state
         )?;
-
         self.refresh_state();
         Ok(gate)
     }
@@ -141,7 +180,6 @@ impl OdinCore {
             &self.authority,
             self.state
         )?;
-
         self.refresh_state();
         Ok(gate)
     }
@@ -165,7 +203,6 @@ impl OdinCore {
             &self.authority,
             self.state
         )?;
-
         self.refresh_state();
         Ok(fin)
     }
@@ -174,5 +211,38 @@ impl OdinCore {
         if !self.ledger.verify_chain(&self.authority) {
             self.state = CoreState::Red;
         }
+    }
+
+    // -------- Stage 9: Query Surface --------
+
+    pub fn snapshot(&self) -> CoreSnapshot {
+        CoreSnapshot {
+            state: self.state,
+            chain_valid: self.chain_valid(),
+            ledger_len: self.ledger_len(),
+        }
+    }
+
+    pub fn proof_bundle(&self, intent_id: Option<&str>) -> ProofBundle {
+        let snapshot = self.snapshot();
+        let boot_receipts = self.ledger.filter_kind("boot_receipt");
+        let execution_receipts = self.ledger.filter_kind("execution_receipt");
+
+        let intent_slice = intent_id.map(|id| {
+            IntentProofSlice::new(id.to_string(), self.ledger.filter_intent(id))
+        });
+
+        ProofBundle {
+            generated_at_unix: ProofBundle::now_unix(),
+            snapshot,
+            boot_receipts,
+            execution_receipts,
+            intent_slice,
+        }
+    }
+
+    pub fn export_proof_bundle_json(&self, path: &str, intent_id: Option<&str>) -> Result<(), &'static str> {
+        let bundle = self.proof_bundle(intent_id);
+        bundle.write_json_file(path)
     }
 }
