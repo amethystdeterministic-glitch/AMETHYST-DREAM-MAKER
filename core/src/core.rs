@@ -192,6 +192,32 @@ impl OdinCore {
             return Err("Finalize blocked: already finalized (single-shot)");
         }
 
+        // ---- Stage 13: Capability-Governed TreeGate ----
+        let tg_input = crate::lifecycle::tree_gate::TreeGateInput {
+            tool_name: &intent.request, // using request as tool placeholder
+            target_path: "",            // placeholder until Intent extended
+            port: 0,                    // placeholder until Intent extended
+            role: crate::policy::role::Role::Sovereign,
+        };
+
+        let audit = match crate::lifecycle::tree_gate::validate_tree_gate(&tg_input) {
+            Ok(a) => a,
+            Err(_) => return Err("Finalize blocked: Capability enforcement failed"),
+        };
+
+        self.ledger.append_signed(
+            "cap_audit",
+            json!({
+                "intent_id": intent.intent_id,
+                "tool": audit.tool,
+                "role": format!("{:?}", audit.role),
+                "derived": audit.derived,
+                "required": audit.required
+            }),
+            &self.authority,
+            self.state
+        )?;
+
         let fin = Finalize::new(intent);
 
         self.ledger.append_signed(
@@ -203,10 +229,10 @@ impl OdinCore {
             &self.authority,
             self.state
         )?;
+
         self.refresh_state();
         Ok(fin)
     }
-
     fn refresh_state(&mut self) {
         if !self.ledger.verify_chain(&self.authority) {
             self.state = CoreState::Red;
