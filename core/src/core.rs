@@ -17,11 +17,9 @@ impl OdinCore {
         let mut ledger = Ledger::new();
         let mut state = CoreState::Green;
 
-        // Genesis entry
         ledger.append_signed("genesis", json!({"event": "genesis"}), &authority, state)
             .expect("Genesis append failed");
 
-        // Boot verify
         if !ledger.verify_chain(&authority) {
             state = CoreState::Red;
         }
@@ -39,6 +37,31 @@ impl OdinCore {
 
     pub fn chain_valid(&self) -> bool {
         self.ledger.verify_chain(&self.authority)
+    }
+
+    /// Advisory-only: record brain outputs as evidence, never as authority.
+    /// This does not create an Intent, does not TreeGate, does not Finalize.
+    pub fn record_brain_event(
+        &mut self,
+        brain_name: &str,
+        input_hash: &str,
+        output_hash: &str,
+        output_text: &str,
+    ) -> Result<(), &'static str> {
+        self.ledger.append_signed(
+            "brain_event",
+            json!({
+                "brain_name": brain_name,
+                "input_hash": input_hash,
+                "output_hash": output_hash,
+                "output_text": output_text
+            }),
+            &self.authority,
+            self.state
+        )?;
+
+        self.refresh_state();
+        Ok(())
     }
 
     pub fn submit_intent(&mut self, request: String) -> Result<Intent, &'static str> {

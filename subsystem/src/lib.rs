@@ -1,3 +1,9 @@
+mod brains;
+mod registry;
+
+pub use brains::{BrainSpec, BrainOutput, make_brain_output, hash_text};
+pub use registry::BrainRegistry;
+
 use odin_core::OdinCore;
 use serde::{Deserialize, Serialize};
 use thiserror::Error;
@@ -6,7 +12,7 @@ use thiserror::Error;
 pub enum SubsystemError {
     #[error("normalization failed")]
     NormalizationFailed,
-    #[error("core rejected intent: {0}")]
+    #[error("core rejected: {0}")]
     CoreRejected(&'static str),
 }
 
@@ -17,9 +23,6 @@ pub struct Receipt {
     pub finalized: bool,
 }
 
-/// Subsystem normalization: make the external request safe and structured.
-/// For now: trim + enforce non-empty.
-/// Later: schema, scopes, allowlists, routing, etc.
 pub fn normalize_request(input: &str) -> Result<String, SubsystemError> {
     let s = input.trim();
     if s.is_empty() {
@@ -28,11 +31,22 @@ pub fn normalize_request(input: &str) -> Result<String, SubsystemError> {
     Ok(s.to_string())
 }
 
-/// Canonical syscall-style boundary:
-/// - normalize external request
-/// - submit intent to Core
-/// - TreeGate PASS (placeholder policy)
-/// - finalize (single-shot enforced by Core)
+/// Advisory brain event: record in Core ledger as evidence.
+/// This does not advance lifecycle.
+pub fn syscall_record_brain_output(
+    core: &mut OdinCore,
+    output: &BrainOutput,
+) -> Result<(), SubsystemError> {
+    core.record_brain_event(
+        &output.brain_name,
+        &output.input_hash,
+        &output.output_hash,
+        &output.output_text,
+    ).map_err(SubsystemError::CoreRejected)
+}
+
+/// Canonical syscall boundary:
+/// normalize → submit intent → TreeGate PASS (placeholder) → finalize
 pub fn syscall_submit_and_finalize(
     core: &mut OdinCore,
     external_request: &str,
