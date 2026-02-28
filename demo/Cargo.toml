@@ -1,0 +1,8 @@
+[package]
+name = "odin_demo"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+odin_core = { path = "../core" }
+odin_subsystem = { path = "../subsystem" }
