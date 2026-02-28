@@ -2,7 +2,8 @@
 members = [
     "kernel",
     "core",
-    "subsystem"
-, "demo"]
+    "subsystem",
+    "orchestrator"
+]
 
 resolver = "2"
