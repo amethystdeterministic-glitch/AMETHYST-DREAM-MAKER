@@ -12,7 +12,7 @@ const LLAMA_SERVER: &str =
 const QWEN_MODEL: &str =
     "/data/data/com.termux/files/home/odin_runtime/models/qwen2.5-3b-instruct-q4_k_m.gguf";
 
-const QWEN_PORT: u16 = 8081;
+const QWEN_PORT: u16 = 2026;
 
 const QWEN_PID: &str =
     "/data/data/com.termux/files/home/odin_runtime/qwen.pid";

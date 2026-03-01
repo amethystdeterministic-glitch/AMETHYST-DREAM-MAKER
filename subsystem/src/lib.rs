@@ -5,6 +5,7 @@ pub mod api;
 
 pub use brains::{BrainSpec, BrainOutput, make_brain_output, hash_text};
 pub use registry::BrainRegistry;
+pub use registry::call_language_brain;
 pub use tools::{ToolCall, ToolResult, execute_tool_simulated};
 
 use odin_core::OdinCore;

@@ -3,7 +3,8 @@ members = [
     "kernel",
     "core",
     "subsystem",
-    "amethystctl"
+    "amethystctl",
+    "pilgrim"
 ]
 
 resolver = "2"
