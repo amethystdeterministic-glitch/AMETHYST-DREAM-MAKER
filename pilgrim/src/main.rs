@@ -1,15 +1,14 @@
-use axum::{
-    routing::{get, post},
-    Json, Router,
-};
+use axum::{routing::{get, post}, Json, Router};
 use serde::{Deserialize, Serialize};
 use std::net::SocketAddr;
+use uuid::Uuid;
 
 use odin_core::OdinCore;
 use odin_subsystem::{api::record_brain_evidence, call_language_brain, make_brain_output};
 
 const PILGRIM_PORT: u16 = 1898;
-const MODEL_BASE: &str = "http://127.0.0.1:2026";
+const MODEL_HOST: &str = "127.0.0.1";
+const MODEL_PORT: u16 = 2026;
 
 #[derive(Deserialize)]
 struct QueryRequest {
@@ -19,6 +18,7 @@ struct QueryRequest {
 #[derive(Serialize)]
 struct QueryResponse {
     ok: bool,
+    request_id: String,
     status: String,
     pilgrim: Option<String>,
     error: Option<String>,
@@ -28,8 +28,15 @@ struct QueryResponse {
 struct StatusResponse {
     ok: bool,
     pilgrim: String,
+    version: String,
     gateway: String,
-    model: String,
+    runtime: RuntimeStatus,
+}
+
+#[derive(Serialize)]
+struct RuntimeStatus {
+    ok: bool,
+    endpoint: String,
 }
 
 #[tokio::main]
@@ -48,34 +55,41 @@ async fn main() {
 }
 
 async fn root() -> &'static str {
-    "Pilgrim AI v1 — Governed Advisory Gateway"
+    "Pilgrim AI — Governed Advisory Gateway"
 }
 
 async fn status() -> Json<StatusResponse> {
-    let model_ok = model_health().await;
+    let runtime_ok = model_health().await;
     Json(StatusResponse {
         ok: true,
-        pilgrim: "Pilgrim AI v1".into(),
+        pilgrim: "Pilgrim AI".into(),
+        version: env!("CARGO_PKG_VERSION").into(),
         gateway: format!("127.0.0.1:{}", PILGRIM_PORT),
-        model: if model_ok { format!("OK ({})", MODEL_BASE) } else { format!("DOWN ({})", MODEL_BASE) },
+        runtime: RuntimeStatus {
+            ok: runtime_ok,
+            endpoint: format!("http://{}:{}", MODEL_HOST, MODEL_PORT),
+        },
     })
 }
 
 async fn query(Json(payload): Json<QueryRequest>) -> Json<QueryResponse> {
+    let request_id = Uuid::new_v4().to_string();
     let input = payload.input.trim().to_string();
+
     if input.is_empty() {
         return Json(QueryResponse {
             ok: false,
+            request_id,
             status: "rejected".into(),
             pilgrim: None,
             error: Some("empty_input".into()),
         });
     }
 
-    // If model is down, fail fast with a clean error.
     if !model_health().await {
         return Json(QueryResponse {
             ok: false,
+            request_id,
             status: "model_unreachable".into(),
             pilgrim: None,
             error: Some("model_unreachable".into()),
@@ -85,12 +99,13 @@ async fn query(Json(payload): Json<QueryRequest>) -> Json<QueryResponse> {
     // Advisory-only core boot.
     let mut core = OdinCore::boot_ephemeral();
 
-    // Call advisory brain (never panic).
+    // Call advisory brain.
     let brain_text = match call_language_brain(&input).await {
         Ok(t) => t,
         Err(e) => {
             return Json(QueryResponse {
                 ok: false,
+                request_id,
                 status: "brain_call_failed".into(),
                 pilgrim: None,
                 error: Some(e),
@@ -98,14 +113,21 @@ async fn query(Json(payload): Json<QueryRequest>) -> Json<QueryResponse> {
         }
     };
 
-    // Evidence creation (always succeeds).
+    // Evidence (best-effort record, non-fatal).
     let brain_output = make_brain_output("pilgrim_runtime", &input, &brain_text);
-
-    // Recording evidence is best-effort (non-fatal).
     let _ = record_brain_evidence(&mut core, &brain_output);
+
+    // Minimal deterministic log line (safe: no secrets besides request length).
+    eprintln!(
+        "pilgrim request_id={} status=advisory_ok input_len={} output_len={}",
+        request_id,
+        input.len(),
+        brain_text.len()
+    );
 
     Json(QueryResponse {
         ok: true,
+        request_id,
         status: "advisory_ok".into(),
         pilgrim: Some(brain_text),
         error: None,
@@ -113,13 +135,8 @@ async fn query(Json(payload): Json<QueryRequest>) -> Json<QueryResponse> {
 }
 
 async fn model_health() -> bool {
-    // Lightweight probe; no reqwest needed.
-    // We only need to know if port responds.
     tokio::time::timeout(std::time::Duration::from_millis(500), async {
-        match tokio::net::TcpStream::connect(("127.0.0.1", 2026)).await {
-            Ok(_) => true,
-            Err(_) => false,
-        }
+        tokio::net::TcpStream::connect((MODEL_HOST, MODEL_PORT)).await.is_ok()
     })
     .await
     .unwrap_or(false)
