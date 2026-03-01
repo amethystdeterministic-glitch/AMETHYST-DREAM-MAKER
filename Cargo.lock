@@ -997,7 +997,7 @@ checksum = "9b4f627cb1b25917193a259e49bdad08f671f8d9708acfd5fe0a8c1455d87220"
 
 [[package]]
 name = "pilgrim"
-version = "1.0.0"
+version = "1.1.0"
 dependencies = [
  "axum",
  "odin_core",
@@ -1005,6 +1005,16 @@ dependencies = [
  "serde",
  "serde_json",
  "tokio",
+ "uuid",
+]
+
+[[package]]
+name = "pilgrimctl"
+version = "0.1.0"
+dependencies = [
+ "reqwest",
+ "serde",
+ "serde_json",
 ]
 
 [[package]]

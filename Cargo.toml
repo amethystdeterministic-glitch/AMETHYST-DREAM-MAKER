@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "pilgrimctl",
     "kernel",
     "core",
     "subsystem",
