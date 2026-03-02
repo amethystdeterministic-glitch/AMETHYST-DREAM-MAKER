@@ -1,0 +1,2 @@
+[STEP 80] Authority missing drill
+[PASS] missing authority correctly caused verify to fail (fail-closed)

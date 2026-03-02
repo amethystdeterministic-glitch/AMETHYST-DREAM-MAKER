@@ -1,0 +1,2 @@
+[STEP 10] Detect canonical binary
+[OK] Found executable: target/release/odin_cli

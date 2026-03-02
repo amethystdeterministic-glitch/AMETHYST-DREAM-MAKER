@@ -885,6 +885,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "odin_cli"
+version = "0.1.0"
+dependencies = [
+ "odin_core",
+ "serde_json",
+]
+
+[[package]]
 name = "odin_core"
 version = "0.3.0"
 dependencies = [

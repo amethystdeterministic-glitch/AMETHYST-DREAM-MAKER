@@ -1,0 +1,2 @@
+warning: field `error` is never read
+warning: `pilgrimctl` (bin "pilgrimctl") generated 1 warning

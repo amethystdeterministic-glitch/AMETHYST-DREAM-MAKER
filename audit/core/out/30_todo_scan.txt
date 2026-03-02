@@ -1,0 +1,17 @@
+[SCAN] TODO/FIXME in core
+NONE
+
+[SCAN] src NOT_FOUND
+[SCAN] TODO/FIXME in .
+./audit/core/out/REPORT.md:200:[SCAN] TODO/FIXME in core
+./audit/core/out/REPORT.md:204:[SCAN] TODO/FIXME in .
+./audit/core/out/REPORT.md:205:./audit/core/out/REPORT.md:198:[SCAN] TODO/FIXME in core
+./audit/core/out/REPORT.md:206:./audit/core/out/REPORT.md:202:[SCAN] TODO/FIXME in .
+./audit/core/out/REPORT.md:207:./audit/core/out/REPORT.md:203:./audit/core/step_30_scan_todos.sh:11:    echo "[SCAN] TODO/FIXME in $d" >> "$OUT/30_todo_scan.txt"
+./audit/core/out/REPORT.md:208:./audit/core/out/REPORT.md:204:./audit/core/step_30_scan_todos.sh:12:    grep -RIn --exclude-dir target --exclude-dir .git -E "TODO|FIXME" "$d" >> "$OUT/30_todo_scan.txt" 2>/dev/null || echo "NONE" >> "$OUT/30_todo_scan.txt"
+./audit/core/out/REPORT.md:209:./audit/core/step_30_scan_todos.sh:11:    echo "[SCAN] TODO/FIXME in $d" >> "$OUT/30_todo_scan.txt"
+./audit/core/out/REPORT.md:210:./audit/core/step_30_scan_todos.sh:12:    grep -RIn --exclude-dir target --exclude-dir .git -E "TODO|FIXME" "$d" >> "$OUT/30_todo_scan.txt" 2>/dev/null || echo "NONE" >> "$OUT/30_todo_scan.txt"
+./audit/core/step_30_scan_todos.sh:11:    echo "[SCAN] TODO/FIXME in $d" >> "$OUT/30_todo_scan.txt"
+./audit/core/step_30_scan_todos.sh:12:    grep -RIn --exclude-dir target --exclude-dir .git -E "TODO|FIXME" "$d" >> "$OUT/30_todo_scan.txt" 2>/dev/null || echo "NONE" >> "$OUT/30_todo_scan.txt"
+NONE
+

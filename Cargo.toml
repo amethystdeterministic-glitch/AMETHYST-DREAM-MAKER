@@ -6,6 +6,6 @@ members = [
     "subsystem",
     "amethystctl",
     "pilgrim"
-]
+, "odin_cli"]
 
 resolver = "2"

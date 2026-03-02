@@ -1,0 +1,16 @@
+[STEP 50] Verify baseline contract
+[TRY] target/release/odin_cli verify
+{
+  "authority_key_found": true,
+  "authority_key_path": "/data/data/com.termux/files/home/.odin/keys/authority.key",
+  "ledger_found": true,
+  "ledger_path": "/data/data/com.termux/files/home/.odin/ledger/ledger.jsonl",
+  "notes": [
+    "authority_key_not_found_in_default_locations",
+    "ledger_not_found_in_default_locations"
+  ],
+  "odin_core_version": "0.3.0",
+  "ok": true,
+  "translation_blocks_verified": 0
+}
+[PASS] Baseline verification complete

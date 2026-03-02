@@ -1,0 +1,112 @@
+[STEP 65] Scan odin_core for existing verify/proof surfaces
+
+[GREP] export_proof / proof / verify / receipt / ledger / authority
+core/src/main.rs:6:    let core = OdinCore::boot();
+core/src/main.rs:8:    println!("Ledger entries: {}", core.ledger_len());
+core/src/authority/mod.rs:6:const KEY_FILE: &str = "odin_authority.key";
+core/src/authority/mod.rs:10:    verifying: VerifyingKey,
+core/src/authority/mod.rs:18:                panic!("Invalid authority key length (expected 32 bytes)");
+core/src/authority/mod.rs:23:            let verifying = signing.verifying_key();
+core/src/authority/mod.rs:24:            Self { signing, verifying }
+core/src/authority/mod.rs:28:            let verifying = signing.verifying_key();
+core/src/authority/mod.rs:29:            Self { signing, verifying }
+core/src/authority/mod.rs:37:    pub fn verify(&self, msg: &[u8], sig: &Signature) -> bool {
+core/src/authority/mod.rs:38:        self.verifying.verify(msg, sig).is_ok()
+core/src/ledger/mod.rs:3:use crate::authority::AuthorityRoot;
+core/src/ledger/mod.rs:10:const LEDGER_FILE: &str = "odin_ledger.jsonl";
+core/src/ledger/mod.rs:18:    pub authority_sig: Vec<u8>,
+core/src/ledger/mod.rs:37:    pub fn load(authority: &AuthorityRoot) -> Result<Self, &'static str> {
+core/src/ledger/mod.rs:42:        let file = File::open(LEDGER_FILE).map_err(|_| "Failed to open ledger")?;
+core/src/ledger/mod.rs:47:            let line = line.map_err(|_| "Failed to read ledger line")?;
+core/src/ledger/mod.rs:49:            let entry: LedgerEntry = serde_json::from_str(&line).map_err(|_| "Invalid ledger entry")?;
+core/src/ledger/mod.rs:53:        let ledger = Self { entries, backend: LedgerBackend::File };
+core/src/ledger/mod.rs:55:        if !ledger.verify_chain(authority) {
+core/src/ledger/mod.rs:59:        Ok(ledger)
+core/src/ledger/mod.rs:75:        authority: &AuthorityRoot,
+core/src/ledger/mod.rs:90:            authority_sig: Vec::new(),
+core/src/ledger/mod.rs:100:        let sig = authority.sign(entry.entry_hash.as_bytes());
+core/src/ledger/mod.rs:101:        entry.authority_sig = sig.to_bytes().to_vec();
+core/src/ledger/mod.rs:108:                .map_err(|_| "Failed to open ledger for append")?;
+core/src/ledger/mod.rs:111:            writeln!(file, "{}", line).map_err(|_| "Failed to write ledger entry")?;
+core/src/ledger/mod.rs:118:    pub fn verify_chain(&self, authority: &AuthorityRoot) -> bool {
+core/src/ledger/mod.rs:128:            clone.authority_sig.clear();
+core/src/ledger/mod.rs:139:            if entry.authority_sig.len() != 64 {
+core/src/ledger/mod.rs:144:            sig_bytes.copy_from_slice(&entry.authority_sig);
+core/src/ledger/mod.rs:148:            if !authority.verify(entry.entry_hash.as_bytes(), &sig) {
+core/src/ledger/mod.rs:183:        self.has_kind_for_intent("execution_receipt", intent_id)
+core/src/core.rs:7:use crate::authority::AuthorityRoot;
+core/src/core.rs:8:use crate::ledger::Ledger;
+core/src/core.rs:12:use crate::proof::ProofBundle;
+core/src/core.rs:15:    authority: AuthorityRoot,
+core/src/core.rs:16:    ledger: Ledger,
+core/src/core.rs:21:    pub fn boot() -> Self {
+core/src/core.rs:22:        let authority = AuthorityRoot::load_or_create();
+core/src/core.rs:26:        let mut ledger = match Ledger::load(&authority) {
+core/src/core.rs:34:        if state == CoreState::Green && ledger.len() == 0 {
+core/src/core.rs:35:            ledger.append_signed("genesis", json!({"event":"genesis"}), &authority, state).ok();
+core/src/core.rs:40:            let boot_hash = Self::compute_boot_hash();
+core/src/core.rs:42:            ledger.append_signed(
+core/src/core.rs:43:                "boot_receipt",
+core/src/core.rs:44:                json!({ "timestamp": ts, "boot_hash": boot_hash }),
+core/src/core.rs:45:                &authority,
+core/src/core.rs:50:        if state == CoreState::Green && !ledger.verify_chain(&authority) {
+core/src/core.rs:54:        Self { authority, ledger, state }
+core/src/core.rs:57:    fn compute_boot_hash() -> String {
+core/src/core.rs:64:    pub fn boot_ephemeral() -> Self {
+core/src/core.rs:65:        let authority = AuthorityRoot::load_or_create();
+core/src/core.rs:66:        let mut ledger = Ledger::new_in_memory();
+core/src/core.rs:69:        ledger.append_signed("genesis", json!({"event":"genesis"}), &authority, state).ok();
+core/src/core.rs:71:        if !ledger.verify_chain(&authority) {
+core/src/core.rs:75:        Self { authority, ledger, state }
+core/src/core.rs:79:    pub fn ledger_len(&self) -> usize { self.ledger.len() }
+core/src/core.rs:80:    pub fn chain_valid(&self) -> bool { self.ledger.verify_chain(&self.authority) }
+core/src/core.rs:82:    pub fn is_finalized(&self, intent_id: &str) -> bool { self.ledger.finalized(intent_id) }
+core/src/core.rs:83:    pub fn is_executed(&self, intent_id: &str) -> bool { self.ledger.executed(intent_id) }
+core/src/core.rs:92:        self.ledger.append_signed(
+core/src/core.rs:100:            &self.authority,
+core/src/core.rs:107:    pub fn record_execution_receipt(
+core/src/core.rs:114:        if !self.ledger.finalized(intent_id) {
+core/src/core.rs:117:        if self.ledger.executed(intent_id) {
+core/src/core.rs:121:        self.ledger.append_signed(
+core/src/core.rs:122:            "execution_receipt",
+core/src/core.rs:129:            &self.authority,
+core/src/core.rs:139:        self.ledger.append_signed(
+core/src/core.rs:146:            &self.authority,
+core/src/core.rs:156:        self.ledger.append_signed(
+core/src/core.rs:164:            &self.authority,
+core/src/core.rs:174:        self.ledger.append_signed(
+core/src/core.rs:182:            &self.authority,
+core/src/core.rs:190:        if !self.ledger.treegate_passed(&intent.intent_id) {
+core/src/core.rs:193:        if self.ledger.finalized(&intent.intent_id) {
+core/src/core.rs:210:        self.ledger.append_signed(
+core/src/core.rs:219:            &self.authority,
+core/src/core.rs:229:        self.ledger.append_signed(
+core/src/core.rs:235:            &self.authority,
+core/src/core.rs:246:        self.ledger.append_signed(
+core/src/core.rs:254:            &self.authority,
+core/src/core.rs:260:        self.ledger.append_signed(
+core/src/core.rs:266:            &self.authority,
+core/src/core.rs:274:        if !self.ledger.verify_chain(&self.authority) {
+core/src/core.rs:285:            ledger_len: self.ledger_len(),
+core/src/core.rs:289:    pub fn proof_bundle(&self, intent_id: Option<&str>) -> ProofBundle {
+core/src/core.rs:291:        let boot_receipts = self.ledger.filter_kind("boot_receipt");
+core/src/core.rs:292:        let execution_receipts = self.ledger.filter_kind("execution_receipt");
+core/src/core.rs:295:            IntentProofSlice::new(id.to_string(), self.ledger.filter_intent(id))
+core/src/core.rs:301:            boot_receipts,
+core/src/core.rs:302:            execution_receipts,
+core/src/core.rs:307:    pub fn export_proof_bundle_json(&self, path: &str, intent_id: Option<&str>) -> Result<(), &'static str> {
+core/src/core.rs:308:        let bundle = self.proof_bundle(intent_id);
+core/src/lib.rs:1:pub mod authority;
+core/src/lib.rs:2:pub mod ledger;
+core/src/lib.rs:7:pub mod proof;
+core/src/query.rs:3:use crate::ledger::LedgerEntry;
+core/src/query.rs:9:    pub ledger_len: usize,
+core/src/proof.rs:6:use crate::ledger::LedgerEntry;
+core/src/proof.rs:12:    pub boot_receipts: Vec<LedgerEntry>,
+core/src/proof.rs:13:    pub execution_receipts: Vec<LedgerEntry>,
+core/src/proof.rs:19:        let s = serde_json::to_string_pretty(self).map_err(|_| "Failed to serialize proof bundle")?;
+core/src/proof.rs:20:        fs::write(path, s).map_err(|_| "Failed to write proof bundle")?;
+core/src/policy/tool.rs:7:    set.insert("export_proof");
+core/src/policy/tool.rs:31:        "export_proof",
+core/src/capability/profiles.rs:9:        // Full authority. Can mutate, execute tools, spawn, and use network.
+

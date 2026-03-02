@@ -1,0 +1,2 @@
+[STEP 70] Ledger corruption drill
+[PASS] corruption detected (verify failed), ledger restored

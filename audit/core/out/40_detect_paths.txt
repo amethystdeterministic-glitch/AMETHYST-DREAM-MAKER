@@ -1,0 +1,4 @@
+[STEP 40] Detect critical paths
+[OK] Canonical binary present: target/release/odin_cli
+[OK] Audit directory present
+[PASS] Path detection complete
