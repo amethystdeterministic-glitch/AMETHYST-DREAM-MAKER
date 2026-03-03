@@ -19,7 +19,7 @@ use tower_http::cors::CorsLayer;
 use uuid::Uuid;
 use walkdir::WalkDir;
 
-#[derive(Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct AppState {
     root: PathBuf,
 }
@@ -43,6 +43,8 @@ struct MissionMeta {
     created_at: String,
 }
 
+
+
 #[derive(Debug, Serialize, Deserialize, Clone)]
 struct SnapshotMeta {
     snapshot_id: Uuid,
@@ -51,32 +53,38 @@ struct SnapshotMeta {
     manifest_sha256: String,
     file_count: u64,
     total_bytes: u64,
+    #[serde(default)]
+    prev_snapshot_id: Option<Uuid>,
+    #[serde(default)]
+    prev_chain_sha256: Option<String>,
+    #[serde(default)]
+    chain_sha256: Option<String>,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct CreateMissionReq {
     name: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct CreateMissionResp {
     mission_id: Uuid,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct ImportReq {
     // base64 is intentionally not supported in V1 to keep determinism simple.
     // Provide server-side file path to import from (local only).
     local_path: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct ImportResp {
     imported_files: u64,
     imported_bytes: u64,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct LockSnapshotResp {
     snapshot_id: Uuid,
     manifest_sha256: String,
@@ -149,14 +157,14 @@ fn sha256_hex(bytes: &[u8]) -> String {
     hex::encode(hasher.finalize())
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct ManifestEntry {
     rel_path: String,
     sha256: String,
     bytes: u64,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct Manifest {
     mission_id: Uuid,
     snapshot_id: Uuid,
@@ -485,6 +493,14 @@ async fn lock_snapshot(
     }
 
     // Write snapshot meta
+
+
+    // ----- CHAIN FIELDS (V1 minimal, deterministic) -----
+    let prev_snapshot_id: Option<Uuid> = None;
+    let chain_seed: String = "GENESIS".to_string();
+    let chain_input = format!("{}:{}", chain_seed, manifest_sha256);
+    let chain_sha256 = sha256_hex(chain_input.as_bytes());
+
     let snapshot_meta = SnapshotMeta {
         snapshot_id,
         mission_id,
@@ -492,6 +508,9 @@ async fn lock_snapshot(
         manifest_sha256: manifest_sha256.clone(),
         file_count: manifest.file_count,
         total_bytes: manifest.total_bytes,
+        prev_snapshot_id,
+        prev_chain_sha256: Some(chain_seed),
+        chain_sha256: Some(chain_sha256),
     };
     if let Err(e) = write_json_atomic(&sdir.join("snapshot.json"), &snapshot_meta) {
         return (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
@@ -552,7 +571,7 @@ async fn main() -> Result<()> {
 // INSIGHTS
 // =======================
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct MissionInsights {
     mission_id: Uuid,
     snapshot_id: Uuid,
@@ -603,7 +622,7 @@ async fn mission_insights(
 // PROOF BUNDLE EXPORT
 // =======================
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct ProofBundleReceipt {
     mission_id: Uuid,
     snapshot_id: Uuid,
@@ -714,7 +733,7 @@ async fn verify_proof_bundle(
 // PROOF BUNDLE ZIP EXPORT
 // =======================
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Serialize, Deserialize, Clone)]
 struct ZipExportReceipt {
     mission_id: Uuid,
     snapshot_id: Uuid,
