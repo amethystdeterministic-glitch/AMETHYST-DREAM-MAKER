@@ -499,7 +499,7 @@ async fn lock_snapshot(
     let _prev_snapshot_id: Option<Uuid> = None;
     let chain_seed: String = "GENESIS".to_string();
     let chain_input = format!("{}:{}", chain_seed, manifest_sha256);
-    let _chain_sha256 = sha256_hex(chain_input.as_bytes());
+    let chain_sha256 = sha256_hex(chain_input.as_bytes());
 
     // ----- DETERMINISTIC PER-MISSION CHAIN -----
     let mut prev_snapshot_id: Option<Uuid> = None;
@@ -521,7 +521,7 @@ async fn lock_snapshot(
     }
     let chain_seed = prev_chain_sha256.clone().unwrap_or_else(|| "GENESIS".to_string());
     let chain_input = format!("{}:{}", chain_seed, manifest_sha256);
-    let _chain_sha256 = sha256_hex(chain_input.as_bytes());
+    let chain_sha256 = sha256_hex(chain_input.as_bytes());
     let snapshot_meta = SnapshotMeta {
         snapshot_id,
         mission_id,
