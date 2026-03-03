@@ -496,32 +496,11 @@ async fn lock_snapshot(
 
 
     // ----- CHAIN FIELDS (V1 minimal, deterministic) -----
-    let _prev_snapshot_id: Option<Uuid> = None;
+    let prev_snapshot_id: Option<Uuid> = None;
     let chain_seed: String = "GENESIS".to_string();
     let chain_input = format!("{}:{}", chain_seed, manifest_sha256);
-    let _chain_sha256 = sha256_hex(chain_input.as_bytes());
+    let chain_sha256 = sha256_hex(chain_input.as_bytes());
 
-    // ----- DETERMINISTIC PER-MISSION CHAIN -----
-    let mut prev_snapshot_id: Option<Uuid> = None;
-    let mut prev_chain_sha256: Option<String> = None;
-    let sdir = snapshots_dir(&st.root, mission_id);
-    if let Ok(entries) = std::fs::read_dir(&sdir) {
-        let mut snaps: Vec<_> = entries.filter_map(|e| e.ok().map(|x| x.path())).collect();
-        snaps.retain(|p| p.is_dir());
-        snaps.sort();
-        if let Some(last) = snaps.last() {
-            let meta_path = last.join("snapshot.json");
-            if meta_path.exists() {
-                if let Ok(prev_meta) = read_json::<SnapshotMeta>(&meta_path) {
-                    prev_snapshot_id = Some(prev_meta.snapshot_id);
-                    prev_chain_sha256 = prev_meta.chain_sha256.clone().or(Some(prev_meta.manifest_sha256.clone()));
-                }
-            }
-        }
-    }
-    let chain_seed = prev_chain_sha256.clone().unwrap_or_else(|| "GENESIS".to_string());
-    let chain_input = format!("{}:{}", chain_seed, manifest_sha256);
-    let _chain_sha256 = sha256_hex(chain_input.as_bytes());
     let snapshot_meta = SnapshotMeta {
         snapshot_id,
         mission_id,
@@ -529,9 +508,9 @@ async fn lock_snapshot(
         manifest_sha256: manifest_sha256.clone(),
         file_count: manifest.file_count,
         total_bytes: manifest.total_bytes,
-        prev_snapshot_id: prev_snapshot_id,
+        prev_snapshot_id,
         prev_chain_sha256: Some(chain_seed),
-        chain_sha256: Some(chain_sha256.clone()),
+        chain_sha256: Some(chain_sha256),
     };
     if let Err(e) = write_json_atomic(&sdir.join("snapshot.json"), &snapshot_meta) {
         return (StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
