@@ -1,0 +1,2 @@
+fn({type error}, axum::extract::Path<Uuid>) -> impl std::future::Future<Output = impl IntoResponse> {verify_manifest_integrity}
+fn({type error}, axum::extract::Path<Uuid>) -> impl std::future::Future<Output = impl IntoResponse> {verify_manifest_integrity}: Handler<_, _>

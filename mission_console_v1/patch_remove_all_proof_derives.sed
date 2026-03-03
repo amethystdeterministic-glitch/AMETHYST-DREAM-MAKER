@@ -1,0 +1,9 @@
+/ProofBundleReceipt/{
+x
+}
+/^#\[derive.*\]$/{
+N
+}
+/^#\[derive.*\]$/{
+/ProofBundleReceipt/!d
+}
