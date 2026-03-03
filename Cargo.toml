@@ -1,5 +1,6 @@
 [workspace]
 members = [
+    "mission_console_v1",
     "pilgrimctl",
     "kernel",
     "core",
