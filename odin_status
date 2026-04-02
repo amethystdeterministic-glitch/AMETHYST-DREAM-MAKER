@@ -1,0 +1,27 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+echo "===================================="
+echo "ODIN STATUS (TRUTH)"
+echo "===================================="
+
+echo ""
+echo "[SYSTEM]"
+
+if pgrep -f "llama-server" > /dev/null; then
+  echo "[OK] Qwen running"
+else
+  echo "[--] Qwen not running"
+fi
+
+if pgrep -f "/target/release/dre" > /dev/null; then
+  echo "[OK] D.R.E running"
+else
+  echo "[--] D.R.E not running"
+fi
+
+echo ""
+echo "[RAW PROCESSES]"
+ps -ef | grep -E "llama-server|dre" | grep -v grep
+
+echo ""
+echo "===================================="

@@ -1,0 +1,9 @@
+========================================
+INSTALL SESSION PROBE
+========================================
+apk=/data/data/com.termux/files/home/repos/odin_os/amethyst/arm_apk_engine/artifacts/pilgrim_arm_build.apk
+size=8619
+
+[1] create session
+cmd: Failure calling service package: Failed transaction (2147483646)
+[FAIL] could not create install session

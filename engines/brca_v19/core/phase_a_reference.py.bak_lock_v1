@@ -1,0 +1,473 @@
+import pandas as pd
+import numpy as np
+
+dataset = "~/data/brca_datasets/million.tsv"
+
+df = pd.read_csv(dataset, sep="\t")
+
+# 🔥 BREAK THE SIGNAL EARLY (correct position)
+
+print("[PHASE A] DATA SHAPE:", df.shape)
+# --- SCORING V2: Z-SCORE NORMALIZATION ---
+
+df["z1"] = (df["GENE1"] - df["GENE1"].mean()) / df["GENE1"].std()
+
+df["z2"] = (df["GENE2"] - df["GENE2"].mean()) / df["GENE2"].std()
+
+df["score"] = df["z1"] - df["z2"]
+# ================================
+
+# FEATURE EXPANSION V1
+
+# ================================
+
+eps = 1e-6
+
+
+
+# nonlinear transforms
+
+df["gene1_sq"] = df["GENE1"] ** 2
+
+df["gene2_sq"] = df["GENE2"] ** 2
+
+df["gene1_abs"] = df["GENE1"].abs()
+
+df["gene2_abs"] = df["GENE2"].abs()
+
+
+
+# interaction terms
+
+df["gene_interaction"] = df["GENE1"] * df["GENE2"]
+
+df["gene_ratio"] = df["GENE1"] / (df["GENE2"] + eps)
+
+
+
+# log-safe transforms
+
+df["gene1_log"] = np.log(np.abs(df["GENE1"]) + 1)
+
+df["gene2_log"] = np.log(np.abs(df["GENE2"]) + 1)
+
+
+
+# z-score normalization (per feature)
+
+for col in ["GENE1","GENE2","gene1_sq","gene2_sq","gene_interaction"]:
+
+    mu = df[col].mean()
+
+    sigma = df[col].std() + eps
+
+    df[col + "_z"] = (df[col] - mu) / sigma
+
+
+
+print("[FEATURE EXPANSION] Added nonlinear + interaction features")
+
+
+
+print("[SCORING V2] Applied z-score normalization")
+
+
+genes = [c for c in df.columns if c not in ["SAMPLE_ID","time","event"]]
+
+# scoring model under test
+import numpy as np
+
+num = df.select_dtypes(include=[np.number])
+
+np.savetxt("/data/data/com.termux/files/home/brca_clean_matrix.txt", num.to_numpy())
+
+print("[EXPORT] Clean matrix saved")
+
+
+threshold = df["score"].median()
+# ================================
+
+# FEATURE EXPANSION V1
+
+# ================================
+
+eps = 1e-6
+
+
+
+# nonlinear transforms
+
+df["gene1_sq"] = df["GENE1"] ** 2
+
+df["gene2_sq"] = df["GENE2"] ** 2
+
+df["gene1_abs"] = df["GENE1"].abs()
+
+df["gene2_abs"] = df["GENE2"].abs()
+
+
+
+# interaction terms
+
+df["gene_interaction"] = df["GENE1"] * df["GENE2"]
+
+df["gene_ratio"] = df["GENE1"] / (df["GENE2"] + eps)
+
+
+
+# log-safe transforms
+
+df["gene1_log"] = np.log(np.abs(df["GENE1"]) + 1)
+
+df["gene2_log"] = np.log(np.abs(df["GENE2"]) + 1)
+
+
+
+# z-score normalization (per feature)
+
+for col in ["GENE1","GENE2","gene1_sq","gene2_sq","gene_interaction"]:
+
+    mu = df[col].mean()
+
+    sigma = df[col].std() + eps
+
+    df[col + "_z"] = (df[col] - mu) / sigma
+
+
+
+print("[FEATURE EXPANSION] Added nonlinear + interaction features")
+
+
+import numpy as np
+
+num = df.select_dtypes(include=[np.number])
+
+np.savetxt("/data/data/com.termux/files/home/brca_clean_matrix.txt", num.to_numpy())
+
+print("[EXPORT] Clean matrix saved")
+
+df["group"] = (df["score"] > threshold).astype(int)
+# ================================
+
+# FEATURE EXPANSION V1
+
+# ================================
+
+eps = 1e-6
+
+
+
+# nonlinear transforms
+
+df["gene1_sq"] = df["GENE1"] ** 2
+
+df["gene2_sq"] = df["GENE2"] ** 2
+
+df["gene1_abs"] = df["GENE1"].abs()
+
+df["gene2_abs"] = df["GENE2"].abs()
+
+
+
+# interaction terms
+
+df["gene_interaction"] = df["GENE1"] * df["GENE2"]
+
+df["gene_ratio"] = df["GENE1"] / (df["GENE2"] + eps)
+
+
+
+# log-safe transforms
+
+df["gene1_log"] = np.log(np.abs(df["GENE1"]) + 1)
+
+df["gene2_log"] = np.log(np.abs(df["GENE2"]) + 1)
+
+
+
+# z-score normalization (per feature)
+
+for col in ["GENE1","GENE2","gene1_sq","gene2_sq","gene_interaction"]:
+
+    mu = df[col].mean()
+
+    sigma = df[col].std() + eps
+
+    df[col + "_z"] = (df[col] - mu) / sigma
+
+
+
+print("[FEATURE EXPANSION] Added nonlinear + interaction features")
+
+
+import numpy as np
+
+num = df.select_dtypes(include=[np.number])
+
+np.savetxt("/data/data/com.termux/files/home/brca_clean_matrix.txt", num.to_numpy())
+
+print("[EXPORT] Clean matrix saved")
+
+
+
+# ================================
+# SURVIVAL FEATURE ENGINE V1
+# ================================
+eps = 1e-6
+
+# rank-based features
+df["gene1_rank"] = df["GENE1"].rank(method="average", pct=True)
+df["gene2_rank"] = df["GENE2"].rank(method="average", pct=True)
+df["rank_diff"] = df["gene1_rank"] - df["gene2_rank"]
+
+# quantile bucket features
+df["gene1_top_q"] = (df["GENE1"] >= df["GENE1"].quantile(0.75)).astype(int)
+df["gene1_bot_q"] = (df["GENE1"] <= df["GENE1"].quantile(0.25)).astype(int)
+df["gene2_top_q"] = (df["GENE2"] >= df["GENE2"].quantile(0.75)).astype(int)
+df["gene2_bot_q"] = (df["GENE2"] <= df["GENE2"].quantile(0.25)).astype(int)
+
+# conditional split features
+df["cond_g1_hi_g2_lo"] = ((df["GENE1"] > df["GENE1"].median()) & (df["GENE2"] < df["GENE2"].median())).astype(int)
+df["cond_g1_lo_g2_hi"] = ((df["GENE1"] < df["GENE1"].median()) & (df["GENE2"] > df["GENE2"].median())).astype(int)
+
+# survival-aware proto-score
+df["survival_proto_score"] = (
+    2.0 * df["rank_diff"] +
+    1.5 * df["cond_g1_hi_g2_lo"] -
+    1.5 * df["cond_g1_lo_g2_hi"] +
+    0.75 * df["gene1_top_q"] -
+    0.75 * df["gene2_top_q"] -
+    0.50 * df["gene1_bot_q"] +
+    0.50 * df["gene2_bot_q"]
+)
+
+# override score with survival-aware signal
+df["score"] = df["survival_proto_score"]
+print("[SURVIVAL FEATURE ENGINE] Added rank + quantile + conditional features")
+
+
+# ================================
+# SURVIVAL FEATURE ENGINE V1
+# ================================
+eps = 1e-6
+
+# rank-based features
+df["gene1_rank"] = df["GENE1"].rank(method="average", pct=True)
+df["gene2_rank"] = df["GENE2"].rank(method="average", pct=True)
+df["rank_diff"] = df["gene1_rank"] - df["gene2_rank"]
+
+# quantile bucket features
+df["gene1_top_q"] = (df["GENE1"] >= df["GENE1"].quantile(0.75)).astype(int)
+df["gene1_bot_q"] = (df["GENE1"] <= df["GENE1"].quantile(0.25)).astype(int)
+df["gene2_top_q"] = (df["GENE2"] >= df["GENE2"].quantile(0.75)).astype(int)
+df["gene2_bot_q"] = (df["GENE2"] <= df["GENE2"].quantile(0.25)).astype(int)
+
+# conditional split features
+df["cond_g1_hi_g2_lo"] = ((df["GENE1"] > df["GENE1"].median()) & (df["GENE2"] < df["GENE2"].median())).astype(int)
+df["cond_g1_lo_g2_hi"] = ((df["GENE1"] < df["GENE1"].median()) & (df["GENE2"] > df["GENE2"].median())).astype(int)
+
+# survival-aware proto-score
+df["survival_proto_score"] = (
+    2.0 * df["rank_diff"] +
+    1.5 * df["cond_g1_hi_g2_lo"] -
+    1.5 * df["cond_g1_lo_g2_hi"] +
+    0.75 * df["gene1_top_q"] -
+    0.75 * df["gene2_top_q"] -
+    0.50 * df["gene1_bot_q"] +
+    0.50 * df["gene2_bot_q"]
+)
+
+# override score with survival-aware signal
+df["score"] = df["survival_proto_score"]
+print("[SURVIVAL FEATURE ENGINE] Added rank + quantile + conditional features")
+
+print("[SCORING HEAD]")
+print(df[["SAMPLE_ID","GENE1","GENE2","score","group"]].head())
+
+g0 = df[df["group"] == 0]["time"].mean()
+g1 = df[df["group"] == 1]["time"].mean()
+
+print("[RESULT]")
+print("LOW GROUP:", g0)
+print("HIGH GROUP:", g1)
+
+hr = g1 / g0 if g0 != 0 else 0
+print("HAZARD RATIO:", hr)
+
+if g1 < g0:
+    print("SIGNAL: HIGH SCORE WORSE")
+else:
+    print("SIGNAL: HIGH SCORE BETTER")
+
+# ================================
+# [PROBE] SIGNAL INTEGRITY CHECK
+# ================================
+try:
+    import numpy as np
+
+    if 'data' in globals():
+        print("\n[PROBE] PHASE STATS")
+        print("Min:", np.min(data))
+        print("Max:", np.max(data))
+        print("Mean:", np.mean(data))
+        print("Std:", np.std(data))
+    else:
+        print("\n[PROBE] No 'data' variable found in this phase")
+
+except Exception as e:
+    print("[PROBE ERROR]", e)
+
+# ================================
+# [SMART_PROBE] UNIVERSAL DETECTOR
+# ================================
+try:
+    import numpy as np
+
+    print("\n[SMART_PROBE] SCANNING VARIABLES...")
+
+    found = False
+
+    for name, val in globals().items():
+
+        try:
+            # numpy array
+            if hasattr(val, "shape"):
+                arr = np.array(val)
+
+                if arr.size > 0 and np.issubdtype(arr.dtype, np.number):
+                    print(f"\n[SMART_PROBE] VAR: {name}")
+                    print("Shape:", arr.shape)
+                    print("Min:", np.min(arr))
+                    print("Max:", np.max(arr))
+                    print("Mean:", np.mean(arr))
+                    print("Std:", np.std(arr))
+                    found = True
+
+        except:
+            pass
+
+    if not found:
+        print("[SMART_PROBE] No numeric arrays detected")
+
+except Exception as e:
+    print("[SMART_PROBE ERROR]", e)
+
+# ================================
+# [SMART_PROBE_V3] STABLE DETECTOR
+# ================================
+try:
+    import numpy as np
+
+    print("\n[SMART_PROBE_V3] SCANNING VARIABLES...")
+
+    found = False
+
+    # FIX: snapshot globals to avoid mutation error
+    snapshot = list(globals().items())
+
+    for name, val in snapshot:
+        try:
+            if hasattr(val, "shape"):
+                arr = np.array(val)
+
+                if arr.size > 0 and np.issubdtype(arr.dtype, np.number):
+                    print(f"\n[SMART_PROBE_V3] VAR: {name}")
+                    print("Shape:", arr.shape)
+                    print("Min:", np.min(arr))
+                    print("Max:", np.max(arr))
+                    print("Mean:", np.mean(arr))
+                    print("Std:", np.std(arr))
+                    found = True
+
+        except:
+            pass
+
+    if not found:
+        print("[SMART_PROBE_V3] No numeric arrays detected")
+
+except Exception as e:
+    print("[SMART_PROBE_V3 ERROR]", e)
+
+# ================================
+# [SMART_PROBE_V4] DATAFRAME + LIST DETECTOR
+# ================================
+try:
+    import numpy as np
+
+    print("\n[SMART_PROBE_V4] SCANNING VARIABLES...")
+
+    found = False
+    snapshot = list(globals().items())
+
+    for name, val in snapshot:
+        try:
+            # pandas DataFrame
+            if hasattr(val, "select_dtypes") and hasattr(val, "shape") and hasattr(val, "columns"):
+                num = val.select_dtypes(include=["number"])
+                if getattr(num, "size", 0) > 0:
+                    arr = num.to_numpy()
+                    print(f"\n[SMART_PROBE_V4] DATAFRAME: {name}")
+                    print("Shape:", arr.shape)
+                    print("Min:", np.nanmin(arr))
+                    print("Max:", np.nanmax(arr))
+                    print("Mean:", np.nanmean(arr))
+                    print("Std:", np.nanstd(arr))
+                    found = True
+                    continue
+        except Exception as e:
+            print(f"[SMART_PROBE_V4 DF ERROR] {name}: {e}")
+
+        try:
+            # pandas Series
+            if hasattr(val, "dtype") and hasattr(val, "to_numpy") and hasattr(val, "shape"):
+                arr = val.to_numpy()
+                arr = np.array(arr)
+                if arr.size > 0 and np.issubdtype(arr.dtype, np.number):
+                    print(f"\n[SMART_PROBE_V4] SERIES: {name}")
+                    print("Shape:", arr.shape)
+                    print("Min:", np.nanmin(arr))
+                    print("Max:", np.nanmax(arr))
+                    print("Mean:", np.nanmean(arr))
+                    print("Std:", np.nanstd(arr))
+                    found = True
+                    continue
+        except Exception as e:
+            print(f"[SMART_PROBE_V4 SERIES ERROR] {name}: {e}")
+
+        try:
+            # numpy arrays / scalars
+            if hasattr(val, "shape"):
+                arr = np.array(val)
+                if arr.size > 0 and np.issubdtype(arr.dtype, np.number):
+                    print(f"\n[SMART_PROBE_V4] ARRAY: {name}")
+                    print("Shape:", arr.shape)
+                    print("Min:", np.nanmin(arr))
+                    print("Max:", np.nanmax(arr))
+                    print("Mean:", np.nanmean(arr))
+                    print("Std:", np.nanstd(arr))
+                    found = True
+                    continue
+        except Exception as e:
+            print(f"[SMART_PROBE_V4 ARRAY ERROR] {name}: {e}")
+
+        try:
+            # plain python lists/tuples of numerics
+            if isinstance(val, (list, tuple)) and len(val) > 0:
+                arr = np.array(val, dtype=float)
+                if arr.size > 0:
+                    print(f"\n[SMART_PROBE_V4] LIST: {name}")
+                    print("Shape:", arr.shape)
+                    print("Min:", np.nanmin(arr))
+                    print("Max:", np.nanmax(arr))
+                    print("Mean:", np.nanmean(arr))
+                    print("Std:", np.nanstd(arr))
+                    found = True
+                    continue
+        except:
+            pass
+
+    if not found:
+        print("[SMART_PROBE_V4] No numeric structures detected")
+
+except Exception as e:
+    print("[SMART_PROBE_V4 ERROR]", e)

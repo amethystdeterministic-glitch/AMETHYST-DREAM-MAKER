@@ -1,0 +1,114 @@
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
+build: 0 (unknown) with Clang 21.0.0 for Android aarch64
+system info: n_threads = 8, n_threads_batch = 8, total_threads = 8
+
+system_info: n_threads = 8 (n_threads_batch = 8) / 8 | CPU : NEON = 1 | ARM_FMA = 1 | LLAMAFILE = 1 | REPACK = 1 | 
+
+Running without SSL
+init: using 7 threads for HTTP server
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+srv   load_models: Loaded 0 cached model presets
+srv   load_models: Available models (0) (*: custom preset)
+main: starting router server, no model will be loaded in this process
+start: binding port with default address family
+main: router server is listening on http://127.0.0.1:8080
+main: NOTE: router mode is experimental
+main:       it is not recommended to use this mode in untrusted environments
+srv    operator(): operator(): cleaning up before exit...
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
+build: 0 (unknown) with Clang 21.0.0 for Android aarch64
+system info: n_threads = 8, n_threads_batch = 8, total_threads = 8
+
+system_info: n_threads = 8 (n_threads_batch = 8) / 8 | CPU : NEON = 1 | ARM_FMA = 1 | LLAMAFILE = 1 | REPACK = 1 | 
+
+Running without SSL
+init: using 7 threads for HTTP server
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+srv   load_models: Loaded 0 cached model presets
+srv   load_models: Available models (0) (*: custom preset)
+main: starting router server, no model will be loaded in this process
+start: binding port with default address family
+main: router server is listening on http://127.0.0.1:8080
+main: NOTE: router mode is experimental
+main:       it is not recommended to use this mode in untrusted environments
+srv    operator(): operator(): cleaning up before exit...
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
+build: 0 (unknown) with Clang 21.0.0 for Android aarch64
+system info: n_threads = 8, n_threads_batch = 8, total_threads = 8
+
+system_info: n_threads = 8 (n_threads_batch = 8) / 8 | CPU : NEON = 1 | ARM_FMA = 1 | LLAMAFILE = 1 | REPACK = 1 | 
+
+Running without SSL
+init: using 7 threads for HTTP server
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+srv   load_models: Loaded 0 cached model presets
+srv   load_models: Available models (0) (*: custom preset)
+main: starting router server, no model will be loaded in this process
+start: binding port with default address family
+main: router server is listening on http://127.0.0.1:8080
+main: NOTE: router mode is experimental
+main:       it is not recommended to use this mode in untrusted environments
+srv    operator(): operator(): cleaning up before exit...
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
+build: 0 (unknown) with Clang 21.0.0 for Android aarch64
+system info: n_threads = 8, n_threads_batch = 8, total_threads = 8
+
+system_info: n_threads = 8 (n_threads_batch = 8) / 8 | CPU : NEON = 1 | ARM_FMA = 1 | LLAMAFILE = 1 | REPACK = 1 | 
+
+Running without SSL
+init: using 7 threads for HTTP server
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+srv   load_models: Loaded 0 cached model presets
+srv   load_models: Available models (0) (*: custom preset)
+main: starting router server, no model will be loaded in this process
+start: binding port with default address family
+main: router server is listening on http://127.0.0.1:8080
+main: NOTE: router mode is experimental
+main:       it is not recommended to use this mode in untrusted environments
+srv    operator(): operator(): cleaning up before exit...
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
+build: 0 (unknown) with Clang 21.0.0 for Android aarch64
+system info: n_threads = 8, n_threads_batch = 8, total_threads = 8
+
+system_info: n_threads = 8 (n_threads_batch = 8) / 8 | CPU : NEON = 1 | ARM_FMA = 1 | LLAMAFILE = 1 | REPACK = 1 | 
+
+Running without SSL
+init: using 7 threads for HTTP server
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+srv   load_models: Loaded 0 cached model presets
+srv   load_models: Available models (0) (*: custom preset)
+main: starting router server, no model will be loaded in this process
+start: binding port with default address family
+main: router server is listening on http://127.0.0.1:8080
+main: NOTE: router mode is experimental
+main:       it is not recommended to use this mode in untrusted environments
+srv    operator(): operator(): cleaning up before exit...
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+main: n_parallel is set to auto, using n_parallel = 4 and kv_unified = true
+build: 0 (unknown) with Clang 21.0.0 for Android aarch64
+system info: n_threads = 8, n_threads_batch = 8, total_threads = 8
+
+system_info: n_threads = 8 (n_threads_batch = 8) / 8 | CPU : NEON = 1 | ARM_FMA = 1 | LLAMAFILE = 1 | REPACK = 1 | 
+
+Running without SSL
+init: using 7 threads for HTTP server
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+load_backend: loaded CPU backend from /data/data/com.termux/files/usr/bin/../lib/libggml-cpu.so
+srv   load_models: Loaded 0 cached model presets
+srv   load_models: Available models (0) (*: custom preset)
+main: starting router server, no model will be loaded in this process
+start: binding port with default address family
+main: router server is listening on http://127.0.0.1:8080
+main: NOTE: router mode is experimental
+main:       it is not recommended to use this mode in untrusted environments
+srv    operator(): operator(): cleaning up before exit...

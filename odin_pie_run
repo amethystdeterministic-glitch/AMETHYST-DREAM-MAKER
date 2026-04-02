@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$HOME/repos/odin_os"
+
+echo "===================================="
+echo "ODIN PIE RUN (DCEE)"
+echo "===================================="
+
+bash "$ROOT/engines/dcee_engine/run_dcee.sh"

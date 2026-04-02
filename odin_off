@@ -1,0 +1,55 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+RUNTIME_DIR=~/repos/odin_os/runtime
+
+echo "===================================="
+echo "ODIN OFF — VERIFIED SHUTDOWN (FIXED)"
+echo "===================================="
+
+########################################
+# STOP QWEN
+########################################
+echo "[STOP] Qwen"
+
+if [ -f $RUNTIME_DIR/qwen.pid ]; then
+  PID=$(cat $RUNTIME_DIR/qwen.pid)
+  kill $PID 2>/dev/null
+fi
+
+pkill -f "llama-server" 2>/dev/null
+
+########################################
+# STOP DRE
+########################################
+echo "[STOP] DRE"
+
+if [ -f $RUNTIME_DIR/dre.pid ]; then
+  PID=$(cat $RUNTIME_DIR/dre.pid)
+  kill $PID 2>/dev/null
+fi
+
+pkill -f "/target/release/dre" 2>/dev/null
+
+########################################
+# VERIFY
+########################################
+sleep 1
+
+echo ""
+echo "[VERIFY]"
+
+pgrep -f "llama-server" >/dev/null && echo "[FAIL] Qwen still running" || echo "[OK] Qwen stopped"
+pgrep -f "/target/release/dre" >/dev/null && echo "[FAIL] DRE still running" || echo "[OK] DRE stopped"
+
+echo "===================================="
+
+echo "[STOP] Amethyst"
+
+if [ -f ~/odin_runtime/pids/amethyst.pid ]; then
+  kill $(cat ~/odin_runtime/pids/amethyst.pid) 2>/dev/null
+  rm ~/odin_runtime/pids/amethyst.pid
+  echo "[OK] Amethyst stopped"
+else
+  echo "[SKIP] No Amethyst PID"
+fi
+

@@ -1,0 +1,46 @@
+====================================
+AMETHYST-SIGINT NEOCP REPORT
+====================================
+
+Generated: 2026-03-22T03:08:37.354158+00:00
+
+MISSION
+-------
+Live ingestion and deterministic triage of unconfirmed NEO candidates.
+
+TOP CANDIDATES
+--------------
+AMETHYST-SIGINT NEOCP RANKING
+====================================
+X89556 | triage_score=930.861 | richness=13 | numeric_sum=91786.140
+RAW: X89556  100 2026 03 21.6  11.0549  +5.2650 19.4 Added Mar. 21.79 UT              3   0.03 19.0  0.481
+
+X89515 | triage_score=930.602 | richness=13 | numeric_sum=91760.205
+RAW: X89515  100 2026 03 20.7  13.3761 +16.0786 20.6 Added Mar. 21.02 UT              3   0.03 21.4  1.370
+
+C4629V1 | triage_score=83.218 | richness=14 | numeric_sum=6921.828
+RAW: C4629V1  69 2026 03 19.2  10.3506  -1.7776 18.9 Updated Mar. 21.91 UT          119   2.69 25.9  0.235
+
+C4639X1 | triage_score=82.908 | richness=14 | numeric_sum=6890.814
+RAW: C4639X1 100 2026 03 21.4  17.7884 -34.5853 18.5 Updated Mar. 21.47 UT      S     8   0.07 30.8  0.675
+
+C4636D1 | triage_score=82.779 | richness=14 | numeric_sum=6877.880
+RAW: C4636D1  74 2026 03 21.3  11.7281 +27.6523 19.4 Updated Mar. 22.06 UT           33   2.74 26.0  0.086
+
+C4634U1 | triage_score=82.713 | richness=14 | numeric_sum=6871.345
+RAW: C4634U1  86 2026 03 21.2   9.5161  +6.7992 19.9 Updated Mar. 22.08 UT           41   0.85 26.7  0.056
+
+C4638H1 | triage_score=82.665 | richness=14 | numeric_sum=6866.521
+RAW: C4638H1  96 2026 03 21.3  14.2944  -8.4670 19.5 Updated Mar. 21.67 UT      S    17   0.29 33.5  0.494
+
+C4639E1 | triage_score=82.634 | richness=14 | numeric_sum=6863.414
+RAW: C4639E1 100 2026 03 21.4   0.9970  -3.4172 34.9 Updated Mar. 21.63 UT           12   0.07 31.8  0.689
+
+C4639C1 | triage_score=82.606 | richness=14 | numeric_sum=6860.554
+RAW: C4639C1 100 2026 03 21.4  14.4004  -7.4332 19.9 Updated Mar. 21.40 UT            7   0.02 28.3  0.739
+
+C4635Q1 | triage_score=82.597 | richness=14 | numeric_sum=6859.703
+
+====================================
+END OF REPORT
+====================================

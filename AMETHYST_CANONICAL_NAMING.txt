@@ -1,0 +1,138 @@
+============================================================
+AMETHYST cOS — CANONICAL NAMING SPECIFICATION (LOCKED)
+============================================================
+
+SYSTEM
+------
+Amethyst cOS (Conscious Operating System)
+
+This is the complete deterministic system environment.
+
+------------------------------------------------------------
+
+CORE ARCHITECTURE
+-----------------
+
+1. Amethyst Governance Kernel
+   - Foundation layer
+   - Owns:
+     • constraints
+     • guardrails
+     • laws
+     • enforcement policies
+
+2. Deterministic Runtime Enforcement (D.R.E.)
+   - Execution authority
+   - Responsible for:
+     • validation
+     • rejection
+     • retry logic
+     • deterministic guarantees
+
+3. ODIN Force Engine
+   - Capability layer
+   - Contains engines:
+     • Discovery Engine
+     • Deterministic Linguistic Engine (DLE)
+     • Cancer Engine
+     • Alzheimer’s Engine
+     • Financial / Fraud Engines
+     • Future domain engines
+
+4. Pilgrim AI
+   - Orchestration layer
+   - Converts human intent into deterministic execution pipelines
+
+------------------------------------------------------------
+
+MODEL ABSTRACTION RULE (CRITICAL)
+--------------------------------
+
+- No internal reference to model names (e.g. Qwen)
+- All execution is attributed to Pilgrim AI
+
+External reality:
+  A model may be used
+
+Internal system truth:
+  The model does not exist as a named entity
+
+------------------------------------------------------------
+
+EXECUTION FLOW
+--------------
+
+Human Intent
+→ Pilgrim AI (orchestration)
+→ ODIN Force Engine (capability execution)
+→ D.R.E. (validation and enforcement)
+→ Artifact generation (deterministic output)
+
+------------------------------------------------------------
+
+NAMING RULES (STRICT)
+---------------------
+
+DO NOT USE:
+- "Qwen generated"
+- "the model decided"
+- "AI produced"
+
+USE INSTEAD:
+- "Pilgrim AI executed"
+- "DLE produced"
+- "ODIN Force Engine discovered"
+- "D.R.E. enforced"
+
+------------------------------------------------------------
+
+OUTPUT STANDARD
+---------------
+
+All outputs must be:
+
+- deterministic
+- reproducible
+- validated by D.R.E.
+- attributed to system components (not models)
+
+------------------------------------------------------------
+
+LINGUISTIC ENFORCEMENT
+----------------------
+
+All bilingual outputs:
+
+- must pass through DLE
+- must be validated under D.R.E.
+- must exist as paired artifacts (EN + CY)
+
+------------------------------------------------------------
+
+SYSTEM PRINCIPLE
+----------------
+
+"No model output is trusted until validated by D.R.E."
+
+------------------------------------------------------------
+
+POSITIONING STATEMENT
+---------------------
+
+Amethyst cOS is a deterministic operating system powered by the ODIN Force Engine,
+governed by the Amethyst Governance Kernel, and executed through Pilgrim AI under
+Deterministic Runtime Enforcement (D.R.E.).
+
+------------------------------------------------------------
+
+STATUS
+------
+
+This specification is canonical and non-optional.
+
+All system components, scripts, outputs, and communications
+must conform to this naming and architectural model.
+
+------------------------------------------------------------
+
+END OF SPECIFICATION

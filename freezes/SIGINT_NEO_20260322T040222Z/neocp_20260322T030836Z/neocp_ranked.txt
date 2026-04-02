@@ -1,0 +1,77 @@
+AMETHYST-SIGINT NEOCP RANKING
+====================================
+X89556 | triage_score=930.861 | richness=13 | numeric_sum=91786.140
+RAW: X89556  100 2026 03 21.6  11.0549  +5.2650 19.4 Added Mar. 21.79 UT              3   0.03 19.0  0.481
+
+X89515 | triage_score=930.602 | richness=13 | numeric_sum=91760.205
+RAW: X89515  100 2026 03 20.7  13.3761 +16.0786 20.6 Added Mar. 21.02 UT              3   0.03 21.4  1.370
+
+C4629V1 | triage_score=83.218 | richness=14 | numeric_sum=6921.828
+RAW: C4629V1  69 2026 03 19.2  10.3506  -1.7776 18.9 Updated Mar. 21.91 UT          119   2.69 25.9  0.235
+
+C4639X1 | triage_score=82.908 | richness=14 | numeric_sum=6890.814
+RAW: C4639X1 100 2026 03 21.4  17.7884 -34.5853 18.5 Updated Mar. 21.47 UT      S     8   0.07 30.8  0.675
+
+C4636D1 | triage_score=82.779 | richness=14 | numeric_sum=6877.880
+RAW: C4636D1  74 2026 03 21.3  11.7281 +27.6523 19.4 Updated Mar. 22.06 UT           33   2.74 26.0  0.086
+
+C4634U1 | triage_score=82.713 | richness=14 | numeric_sum=6871.345
+RAW: C4634U1  86 2026 03 21.2   9.5161  +6.7992 19.9 Updated Mar. 22.08 UT           41   0.85 26.7  0.056
+
+C4638H1 | triage_score=82.665 | richness=14 | numeric_sum=6866.521
+RAW: C4638H1  96 2026 03 21.3  14.2944  -8.4670 19.5 Updated Mar. 21.67 UT      S    17   0.29 33.5  0.494
+
+C4639E1 | triage_score=82.634 | richness=14 | numeric_sum=6863.414
+RAW: C4639E1 100 2026 03 21.4   0.9970  -3.4172 34.9 Updated Mar. 21.63 UT           12   0.07 31.8  0.689
+
+C4639C1 | triage_score=82.606 | richness=14 | numeric_sum=6860.554
+RAW: C4639C1 100 2026 03 21.4  14.4004  -7.4332 19.9 Updated Mar. 21.40 UT            7   0.02 28.3  0.739
+
+C4635Q1 | triage_score=82.597 | richness=14 | numeric_sum=6859.703
+RAW: C4635Q1  89 2026 03 21.3  10.3597  -8.3331 18.9 Updated Mar. 22.06 UT           24   0.75 22.9  0.108
+
+6CK1821 | triage_score=54.725 | richness=14 | numeric_sum=4072.458
+RAW: 6CK1821  89 2026 03 21.1  11.0934 -25.5342 19.7 Updated Mar. 22.13 UT           27   0.90 24.8  0.096
+
+MHM1850 | triage_score=54.427 | richness=13 | numeric_sum=4142.737
+RAW: MHM1850  70 2026 03 19.1  10.3143 +43.6326 20.9 Updated Mar. 22.12 UT           50   2.97 24.7  0.022
+
+gb00832 | triage_score=43.745 | richness=13 | numeric_sum=3074.505
+RAW: gb00832 100 2026 03 19.0   1.8125  -9.1525 30.8 Updated Mar. 21.24 UT            3   0.00 28.5  3.170
+
+gb00831 | triage_score=43.725 | richness=13 | numeric_sum=3072.456
+RAW: gb00831 100 2026 03 19.0   1.9084  -0.2076 34.7 Updated Mar. 21.24 UT            3   0.00 32.4  3.179
+
+C462AK1 | triage_score=41.561 | richness=14 | numeric_sum=2756.057
+RAW: C462AK1  70 2026 03 19.3  11.9015 +19.6551 20.6 Updated Mar. 21.94 UT           98   2.66 26.1  0.193
+
+C461XD1 | triage_score=41.087 | richness=14 | numeric_sum=2708.658
+RAW: C461XD1 100 2026 03 18.5   7.1005 -42.1973 21.6 Updated Mar. 20.24 UT            8   0.02 25.2  3.617
+
+C462CQ1 | triage_score=40.798 | richness=14 | numeric_sum=2679.815
+RAW: C462CQ1  98 2026 03 19.3  15.8769  +0.4481 20.8 Updated Mar. 21.24 UT      S    12   0.15 32.9  2.665
+
+C1D0Q35 | triage_score=38.044 | richness=15 | numeric_sum=2304.394
+RAW: C1D0Q35 100 2026 03 20.4  18.1013 +44.8227 22.1 Updated Mar. 21.97 UT           12   0.07 21.2  1.614
+
+C1D50Q5 | triage_score=37.981 | richness=15 | numeric_sum=2298.108
+RAW: C1D50Q5 100 2026 03 21.3  12.1019 +29.6156 22.7 Updated Mar. 21.39 UT            6   0.10 23.3  0.760
+
+ST26C94 | triage_score=37.945 | richness=14 | numeric_sum=2394.461
+RAW: ST26C94  86 2026 03 20.2  20.5812 +44.1302 22.6 Updated Mar. 21.10 UT           30   0.85 30.7  1.060
+
+ST26C99 | triage_score=37.877 | richness=14 | numeric_sum=2387.700
+RAW: ST26C99  77 2026 03 20.4  11.4395 +31.7503 19.5 Updated Mar. 22.01 UT           49   2.60 25.2  0.129
+
+C1D6K45 | triage_score=37.777 | richness=15 | numeric_sum=2277.714
+RAW: C1D6K45 100 2026 03 21.4  14.0740 +10.5702 22.2 Updated Mar. 21.47 UT            7   0.09 20.8  0.670
+
+C1D2L35 | triage_score=37.680 | richness=15 | numeric_sum=2267.970
+RAW: C1D2L35  88 2026 03 21.2  10.1898 +20.9805 21.5 Updated Mar. 22.10 UT           17   0.89 26.8  0.041
+
+C1D0Q15 | triage_score=37.654 | richness=15 | numeric_sum=2265.407
+RAW: C1D0Q15 100 2026 03 20.4  17.0540 +27.4933 23.0 Updated Mar. 20.46 UT           12   0.07 21.0  1.676
+
+C1D0PR5 | triage_score=37.558 | richness=15 | numeric_sum=2255.804
+RAW: C1D0PR5 100 2026 03 20.3  15.0202 +25.8539 23.1 Updated Mar. 21.53 UT           15   1.17 23.4  0.619
+

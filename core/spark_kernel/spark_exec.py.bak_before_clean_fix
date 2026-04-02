@@ -1,0 +1,118 @@
+import requests
+import json
+
+import time
+
+LEDGER_PATH = "/data/data/com.termux/files/home/odin_runtime/ledger/spark_events.jsonl"
+
+def ledger_write(event):
+    try:
+        with open(LEDGER_PATH, "a") as f:
+            f.write(json.dumps(event) + "\n")
+    except:
+        pass
+
+
+QWEN_URL = "http://127.0.0.1:8081/completion"
+DRE_URL = "http://127.0.0.1:7878"
+
+# === LOCAL POLICY ===
+def local_policy(input_text):
+    blocked_terms = ["hack", "exploit", "bypass"]
+    for term in blocked_terms:
+        if term in input_text.lower():
+            return {"allow": False, "reason": f"blocked_term:{term}"}
+    return {"allow": True}
+
+
+def dre_check(input_text):
+    local = local_policy(input_text)
+    if not local["allow"]:
+        return local
+
+    try:
+        r = requests.post(DRE_URL, json={"input": input_text}, timeout=3)
+        try:
+            data = r.json()
+            if isinstance(data, dict) and data.get("allow") is False:
+                return data
+        except:
+            pass
+        return {"allow": True}
+    except:
+        return {"allow": True}
+
+
+def spark_exec(input_text):
+
+    # === GOVERNANCE ===
+    dre = dre_check(input_text)
+    if not dre.get("allow", True):
+
+    # === DETERMINISTIC ROUTING ===
+    text = input_text.lower()
+    if "governance" in text or "pipeline" in text:
+        event = {
+            "ts": int(time.time()),
+            "input": input_text,
+            "decision": "route",
+            "target": "controlled"
+        }
+        ledger_write(event)
+        return json.dumps(event)
+
+        
+        event = {
+            "ts": int(time.time()),
+            "input": input_text,
+            "decision": "block",
+            "reason": str(dre)
+        }
+        ledger_write(event)
+        
+        event = {
+            "ts": int(time.time()),
+            "input": input_text,
+            "decision": "block",
+            "policy": "dre_enforced",
+            "reason": str(dre)
+        }
+        ledger_write(event)
+        return json.dumps(event)
+
+
+
+    # === QWEN EXECUTION (STABLE MODE) ===
+    try:
+        payload = {
+            "prompt": f"Answer briefly: {input_text}",
+            "n_predict": 60,
+            "temperature": 0.2,
+            "stop": ["</s>"]
+        }
+
+        r = requests.post(QWEN_URL, json=payload, timeout=25)
+
+        data = r.json()
+        output = data.get("content", "").strip()
+
+        if not output:
+            return "[QWEN ERROR]: empty response"
+
+        
+        event = {
+            "ts": int(time.time()),
+            "input": input_text,
+            "decision": "allow",
+            "engine": "qwen",
+            "output_preview": output[:120]
+        }
+        ledger_write(event)
+        return f"[QWEN]: {output}"
+
+
+    except requests.exceptions.Timeout:
+        return "[QWEN TIMEOUT]: model did not respond in time"
+
+    except Exception as e:
+        return f"[SPARK ERROR]: {str(e)}"

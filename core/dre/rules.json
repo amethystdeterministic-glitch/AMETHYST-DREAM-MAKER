@@ -1,0 +1,13 @@
+{
+  "allowed_actions": {
+    "deploy": {
+      "requires_payload": true
+    },
+    "test": {
+      "requires_payload": true
+    },
+    "status": {
+      "requires_payload": false
+    }
+  }
+}

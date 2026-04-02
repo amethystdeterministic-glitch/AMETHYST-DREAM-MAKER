@@ -1,0 +1,28 @@
+ANOMALY REPORT
+----------------
+row=428 | feature_1 | value=9.5145 | z=3.0029
+row=1381 | feature_1 | value=9.7011 | z=3.0743
+row=2792 | feature_1 | value=9.9683 | z=3.1765
+row=3282 | feature_1 | value=9.6275 | z=3.0461
+row=423 | feature_2 | value=9.6359 | z=3.0331
+row=689 | feature_2 | value=9.6185 | z=3.0265
+row=829 | feature_2 | value=9.6953 | z=3.0557
+row=1532 | feature_3 | value=9.8068 | z=3.0968
+row=1705 | feature_3 | value=9.5703 | z=3.0068
+row=2855 | feature_3 | value=9.6160 | z=3.0242
+row=4634 | feature_4 | value=9.7816 | z=3.0967
+row=3362 | feature_5 | value=9.6177 | z=3.0214
+row=5660 | feature_5 | value=9.8442 | z=3.1075
+row=3501 | feature_6 | value=9.7971 | z=3.0822
+row=8697 | feature_7 | value=10.2144 | z=3.2622
+row=7449 | feature_8 | value=9.7918 | z=3.1134
+row=8869 | feature_8 | value=10.1436 | z=3.2481
+row=9223 | feature_8 | value=9.7315 | z=3.0903
+row=9548 | feature_8 | value=9.6918 | z=3.0751
+row=8880 | feature_9 | value=10.0118 | z=3.1716
+row=8899 | feature_9 | value=9.7257 | z=3.0629
+row=9951 | feature_9 | value=10.6184 | z=3.4021
+row=9430 | feature_10 | value=10.5548 | z=3.4049
+row=9501 | feature_10 | value=9.5040 | z=3.0021
+
+TOTAL_ANOMALIES=24

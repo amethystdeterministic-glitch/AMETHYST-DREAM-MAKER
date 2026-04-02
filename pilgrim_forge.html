@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pilgrim Forge</title>
+<style>
+body {
+  margin:0;
+  font-family:Arial;
+  background:#0b0912;
+  color:#00ffc3;
+}
+
+.topbar {
+  padding:10px;
+  background:#111;
+  border-bottom:1px solid #00ffc3;
+}
+
+.container {
+  display:grid;
+  grid-template-columns: 2fr 1fr;
+  height: calc(100vh - 50px);
+}
+
+.left {
+  display:grid;
+  grid-template-rows: 1fr 1fr;
+}
+
+.panel {
+  border:1px solid #00ffc3;
+  margin:5px;
+  padding:10px;
+  background:#050505;
+}
+
+.chat {
+  height:200px;
+  overflow:auto;
+}
+
+input {
+  width:70%;
+  padding:8px;
+  background:#000;
+  color:#00ffc3;
+  border:1px solid #00ffc3;
+}
+
+button {
+  padding:8px;
+  background:#00ffc3;
+  border:none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  PILGRIM FORGE — LIVE INTERFACE
+</div>
+
+<div class="container">
+
+  <div class="left">
+
+    <div class="panel">
+      <h3>Forge Execution</h3>
+      <p>Generate ✔</p>
+      <p>Compile ✔</p>
+      <p>Validate (running)</p>
+      <p>Patch (queued)</p>
+    </div>
+
+    <div class="panel">
+      <h3>Cognitive Chat</h3>
+      <div class="chat" id="chat"></div>
+      <input id="input" placeholder="Type command..." />
+      <button onclick="send()">Send</button>
+    </div>
+
+  </div>
+
+  <div>
+
+    <div class="panel">
+      <h3>Mission Queue</h3>
+      <p>1. Build UI ✔</p>
+      <p>2. Integrate Ledger (active)</p>
+      <p>3. Wire Pilgrim (queued)</p>
+    </div>
+
+    <div class="panel">
+      <h3>Ledger</h3>
+      <p>v2.18 Freeze</p>
+      <p>v2.17 Runtime Fix</p>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+function send() {
+  let input = document.getElementById("input").value;
+  let chat = document.getElementById("chat");
+
+  chat.innerHTML += "<p><b>You:</b> " + input + "</p>";
+  chat.innerHTML += "<p><b>Pilgrim:</b> Processing...</p>";
+
+  document.getElementById("input").value = "";
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,5 @@
+AMETHYST RISK PROJECTION
+====================================
+P12kfD7 | risk=93.459 | dist=0.181 | instability=2.16 | ratio=0.111
+RAW: P12kfD7  35 2026 01 13.4   8.1685 +20.5612 21.0 Updated Mar. 22.01 UT           51 112.41 12.6  0.181
+

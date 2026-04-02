@@ -1,0 +1,90 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+RUNTIME_DIR=~/repos/odin_os/runtime
+mkdir -p $RUNTIME_DIR
+
+echo "===================================="
+echo "ODIN ON — CLEAN BOOT (FIXED)"
+echo "===================================="
+
+########################################
+# START QWEN (if not running)
+########################################
+if ! pgrep -f "llama-server" > /dev/null; then
+  echo "[START] Qwen"
+
+  /data/data/com.termux/files/usr/bin/llama-server \
+    -m ~/odin_runtime/models/qwen2.5-1.5b-instruct-q4_k_m.gguf \
+    --host 127.0.0.1 \
+    --port 8081 \
+    --ctx-size 4096 \
+    --n-gpu-layers 0 &
+
+  echo $! > $RUNTIME_DIR/qwen.pid
+  sleep 2
+else
+  echo "[SKIP] Qwen already running"
+fi
+
+########################################
+# START DRE (if not running)
+########################################
+if ! pgrep -f "/target/release/dre" > /dev/null; then
+  echo "[START] DRE"
+
+  ~/repos/odin_os/target/release/dre &
+
+  echo $! > $RUNTIME_DIR/dre.pid
+  sleep 1
+else
+  echo "[SKIP] DRE already running"
+fi
+
+echo ""
+echo "[VERIFY]"
+pgrep -f "llama-server" >/dev/null && echo "[OK] Qwen running" || echo "[FAIL] Qwen not running"
+pgrep -f "/target/release/dre" >/dev/null && echo "[OK] DRE running" || echo "[FAIL] DRE not running"
+
+echo "===================================="
+
+  echo "[FAIL] Amethyst failed to start"
+fi
+
+
+# ================================
+fi
+
+# ================================
+
+
+# ================================
+# AMETHYST_BOOT (SINGLE INSTANCE)
+# ================================
+echo "[ENV] Amethyst runtime setup"
+
+export PYTHONPATH=/data/data/com.termux/files/home/repos/odin_os/core/spark_kernel:$PYTHONPATH
+cd /data/data/com.termux/files/home
+
+echo "[CLEAN] Free port 9090"
+pkill -f amethyst_server.py 2>/dev/null || true
+fuser -k 9090/tcp 2>/dev/null || true
+sleep 1
+
+echo "[START] Amethyst cOS"
+
+python3 /data/data/com.termux/files/home/amethyst_server.py > /data/data/com.termux/files/home/amethyst.log 2>&1 &
+echo $! > /data/data/com.termux/files/home/odin_runtime/pids/amethyst.pid
+
+sleep 2
+
+if ps -p $(cat /data/data/com.termux/files/home/odin_runtime/pids/amethyst.pid) > /dev/null
+then
+  echo "[OK] Amethyst running (9090)"
+else
+  echo "[FAIL] Amethyst failed to start"
+  echo "[LOG]"
+  tail -n 20 /data/data/com.termux/files/home/amethyst.log
+fi
+
+# ================================
+

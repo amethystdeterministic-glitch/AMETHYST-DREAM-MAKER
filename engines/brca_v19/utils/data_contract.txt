@@ -1,0 +1,11 @@
+REQUIRED FORMAT (TSV):
+
+sample_id    GENE1    GENE2    ...    time    event
+
+RULES:
+- genes must be column names (HGNC symbols)
+- rows = samples
+- time = survival time (numeric)
+- event = 0/1
+- no duplicate gene columns
+- no missing headers

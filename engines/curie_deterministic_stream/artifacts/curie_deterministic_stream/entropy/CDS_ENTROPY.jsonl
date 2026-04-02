@@ -1,0 +1,4 @@
+{"window":0,"entropy":2.5219280948873624,"class":"HIGH_ENTROPY_NOISE"}
+{"window":1,"entropy":3.321928094887362,"class":"HIGH_ENTROPY_NOISE"}
+{"window":0,"entropy":2.5219280948873624,"class":"MID_ENTROPY_STRUCTURED"}
+{"window":1,"entropy":3.321928094887362,"class":"HIGH_ENTROPY_COMPLEX"}

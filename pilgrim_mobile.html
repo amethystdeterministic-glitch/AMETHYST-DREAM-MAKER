@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pilgrim Mobile</title>
+
+<style>
+body {
+  margin:0;
+  font-family: Arial;
+  background:#0b0912;
+  color:#00ffc3;
+}
+
+/* HEADER */
+.topbar {
+  padding:12px;
+  background:#111;
+  border-bottom:1px solid #00ffc3;
+  text-align:center;
+  font-weight:bold;
+}
+
+/* TABS */
+.tabs {
+  display:flex;
+  overflow-x:auto;
+  border-bottom:1px solid #00ffc3;
+}
+
+.tab {
+  padding:10px;
+  flex:1;
+  text-align:center;
+  cursor:pointer;
+  border-right:1px solid #00ffc3;
+}
+
+.active {
+  background:#00ffc3;
+  color:#000;
+}
+
+/* PANELS */
+.panel {
+  display:none;
+  padding:10px;
+}
+
+.panel.active {
+  display:block;
+}
+
+/* CHAT */
+.chat {
+  height:60vh;
+  overflow-y:auto;
+  border:1px solid #00ffc3;
+  padding:10px;
+  margin-bottom:10px;
+}
+
+/* INPUT BAR */
+.inputbar {
+  position:fixed;
+  bottom:0;
+  width:100%;
+  display:flex;
+  background:#111;
+  border-top:1px solid #00ffc3;
+}
+
+input {
+  flex:1;
+  padding:12px;
+  background:#000;
+  color:#00ffc3;
+  border:none;
+}
+
+button {
+  padding:12px;
+  background:#00ffc3;
+  border:none;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="topbar">
+  PILGRIM FORGE — MOBILE
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('forge')">Forge</div>
+  <div class="tab" onclick="switchTab('chat')">Chat</div>
+  <div class="tab" onclick="switchTab('missions')">Missions</div>
+  <div class="tab" onclick="switchTab('ledger')">Ledger</div>
+</div>
+
+<!-- FORGE -->
+<div id="forge" class="panel active">
+  <h3>Forge Execution</h3>
+  <p>Generate ✔</p>
+  <p>Compile ✔</p>
+  <p>Validate (running)</p>
+  <p>Patch (queued)</p>
+</div>
+
+<!-- CHAT -->
+<div id="chat" class="panel">
+  <div class="chat" id="chatbox"></div>
+</div>
+
+<!-- MISSIONS -->
+<div id="missions" class="panel">
+  <h3>Mission Queue</h3>
+  <p>1. Build UI ✔</p>
+  <p>2. Integrate Ledger (active)</p>
+  <p>3. Wire Pilgrim (queued)</p>
+</div>
+
+<!-- LEDGER -->
+<div id="ledger" class="panel">
+  <h3>Ledger</h3>
+  <p>v2.18 Freeze</p>
+  <p>v2.17 Runtime Fix</p>
+</div>
+
+<!-- INPUT -->
+<div class="inputbar">
+  <input id="input" placeholder="Speak to Pilgrim..." />
+  <button onclick="send()">Send</button>
+</div>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+  document.getElementById(tab).classList.add('active');
+
+  event.target.classList.add('active');
+}
+
+function send() {
+  let input = document.getElementById("input").value;
+  let chat = document.getElementById("chatbox");
+
+  chat.innerHTML += "<p><b>You:</b> " + input + "</p>";
+  chat.innerHTML += "<p><b>Pilgrim:</b> Processing...</p>";
+
+  chat.scrollTop = chat.scrollHeight;
+
+  document.getElementById("input").value = "";
+}
+</script>
+
+</body>
+</html>

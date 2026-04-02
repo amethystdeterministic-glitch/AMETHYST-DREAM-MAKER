@@ -1,0 +1,23 @@
+AMETHYST-SIGINT NEOCP V2 RANKING
+====================================
+
+P12kfD7 | triage=2316.162 | mag=21.0 obs=51.0 uncert=112.41 motion=12.6
+P22bZYt | triage=869.600 | mag=23.7 obs=19.0 uncert=38.99 motion=17.2
+ST26C98 | triage=222.215 | mag=20.2 obs=32.0 uncert=3.62 motion=28.7
+MDQH027 | triage=210.843 | mag=24.4 obs=6.0 uncert=4.03 motion=24.5
+CEE1CG2 | triage=206.542 | mag=20.1 obs=47.0 uncert=3.68 motion=25.4
+CEDMYW2 | triage=197.780 | mag=20.5 obs=50.0 uncert=4.64 motion=19.9
+ZTF10Cg | triage=196.650 | mag=31.4 obs=7.0 uncert=2.54 motion=29.2
+ST26CA5 | triage=195.052 | mag=20.1 obs=26.0 uncert=2.79 motion=26.5
+C4636D1 | triage=191.871 | mag=19.4 obs=33.0 uncert=2.74 motion=26.0
+C4629V1 | triage=189.817 | mag=18.9 obs=119.0 uncert=2.69 motion=25.9
+C462AK1 | triage=188.605 | mag=20.6 obs=98.0 uncert=2.66 motion=26.1
+A11z2Ek | triage=188.032 | mag=18.9 obs=18.0 uncert=5.44 motion=14.1
+MHM1850 | triage=187.980 | mag=20.9 obs=50.0 uncert=2.97 motion=24.7
+C1CYQH5 | triage=187.362 | mag=19.7 obs=57.0 uncert=2.06 motion=28.0
+ST26C99 | triage=184.500 | mag=19.5 obs=49.0 uncert=2.6 motion=25.2
+ST26C96 | triage=182.052 | mag=21.4 obs=26.0 uncert=1.48 motion=29.4
+C4638H1 | triage=181.578 | mag=19.5 obs=17.0 uncert=0.29 motion=33.5
+C1C7FZ5 | triage=180.346 | mag=23.6 obs=12.0 uncert=2.93 motion=23.3
+ZTF10Cq | triage=175.843 | mag=17.9 obs=6.0 uncert=0.03 motion=32.2
+C462CQ1 | triage=175.546 | mag=20.8 obs=12.0 uncert=0.15 motion=32.9

@@ -1,0 +1,55 @@
+====================================
+AMETHYST cOS — FREEZE DISCIPLINE
+====================================
+
+PRINCIPLE:
+Every forward step must be frozen.
+
+------------------------------------
+RULES
+------------------------------------
+
+1. NO STEP WITHOUT FREEZE
+- Any successful execution must be recorded
+- No silent progress
+
+2. VALIDATION BEFORE FREEZE
+- Output must be inspected (not assumed)
+- Zero / invalid outputs are not frozen
+
+3. FREEZE CONTENT MUST INCLUDE:
+- dataset used
+- pipeline stage executed
+- result summary
+- system behaviour
+- interpretation (truthful, no hype)
+
+4. LEDGER ENTRY REQUIRED
+- Each freeze appended to ledger.jsonl
+
+5. NO DRIFT
+- Naming must follow canonical system
+- Amethyst cOS / Pilgrim AI / Odin-Force Engine only
+
+6. FAILURE HANDLING
+- Failures are not hidden
+- Failures may be frozen as "INVALID STATE"
+
+------------------------------------
+OBJECTIVE
+------------------------------------
+
+To ensure:
+
+- deterministic progress tracking
+- reproducible system evolution
+- no loss of working states
+- no fabricated success
+
+------------------------------------
+STATUS
+------------------------------------
+
+THIS IS A MANDATORY SYSTEM RULE
+
+------------------------------------

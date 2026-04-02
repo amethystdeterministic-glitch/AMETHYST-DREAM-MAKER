@@ -1,0 +1,13 @@
+{
+  "engine_id": "CDS_V1",
+  "name": "Curie Deterministic Stream",
+  "acronym": "CDS",
+  "type": "curie_extension_pipeline",
+  "language": "rust",
+  "parent_engine": "CURIE",
+  "role": "bounded_memory_deterministic_stream_analysis",
+  "status": "active_build",
+  "proof_mode": "replayable",
+  "collapse_mode": "local_then_global",
+  "runtime_entrypoint": "/data/data/com.termux/files/home/repos/odin_os/engines/curie_deterministic_stream/run_cds.sh"
+}

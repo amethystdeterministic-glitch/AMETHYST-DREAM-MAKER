@@ -1,0 +1,30 @@
+========================================
+AMETHYST APK ENGINE RUN
+========================================
+I: Using Apktool 2.9.3 on template.apk
+Exception in thread "main" brut.androlib.exceptions.AndrolibException: brut.directory.DirectoryException: java.nio.file.NoSuchFileException: /data/data/com.termux/files/home/repos/odin_os/amethyst/apk_engine/state/work/template.apk
+	at brut.androlib.apk.ApkInfo.hasResources(ApkInfo.java:88)
+	at brut.androlib.ApkDecoder.decode(ApkDecoder.java:98)
+	at brut.apktool.Main.cmdDecode(Main.java:217)
+	at brut.apktool.Main.main(Main.java:92)
+Caused by: brut.directory.DirectoryException: java.nio.file.NoSuchFileException: /data/data/com.termux/files/home/repos/odin_os/amethyst/apk_engine/state/work/template.apk
+	at brut.directory.ZipRODirectory.<init>(ZipRODirectory.java:55)
+	at brut.directory.ZipRODirectory.<init>(ZipRODirectory.java:38)
+	at brut.directory.ExtFile.getDirectory(ExtFile.java:49)
+	at brut.androlib.apk.ApkInfo.hasResources(ApkInfo.java:86)
+	... 3 more
+Caused by: java.nio.file.NoSuchFileException: /data/data/com.termux/files/home/repos/odin_os/amethyst/apk_engine/state/work/template.apk
+	at java.base/sun.nio.fs.UnixException.translateToIOException(UnixException.java:92)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:106)
+	at java.base/sun.nio.fs.UnixException.rethrowAsIOException(UnixException.java:111)
+	at java.base/sun.nio.fs.UnixFileAttributeViews$Basic.readAttributes(UnixFileAttributeViews.java:55)
+	at java.base/sun.nio.fs.UnixFileSystemProvider.readAttributes(UnixFileSystemProvider.java:171)
+	at java.base/sun.nio.fs.LinuxFileSystemProvider.readAttributes(LinuxFileSystemProvider.java:99)
+	at java.base/java.nio.file.Files.readAttributes(Files.java:1854)
+	at java.base/java.util.zip.ZipFile$Source.get(ZipFile.java:1445)
+	at java.base/java.util.zip.ZipFile$CleanableResource.<init>(ZipFile.java:724)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:251)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:180)
+	at java.base/java.util.zip.ZipFile.<init>(ZipFile.java:194)
+	at brut.directory.ZipRODirectory.<init>(ZipRODirectory.java:53)
+	... 6 more

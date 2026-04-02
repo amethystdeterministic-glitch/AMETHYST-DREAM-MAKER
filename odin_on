@@ -1,0 +1,56 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+echo "===================================="
+echo "ODIN ON — CLEAN BOOT (CORE)"
+echo "===================================="
+
+# ================================
+# START QWEN
+# ================================
+echo "[START] Qwen"
+
+nohup /data/data/com.termux/files/usr/bin/llama-server \
+  -m /data/data/com.termux/files/home/odin_runtime/models/qwen2.5-1.5b-instruct-q4_k_m.gguf \
+  --host 127.0.0.1 \
+  --port 8081 \
+  --ctx-size 4096 \
+  --n-gpu-layers 0 \
+  > /data/data/com.termux/files/home/odin_runtime/logs/qwen.log 2>&1 &
+
+echo $! > /data/data/com.termux/files/home/odin_runtime/pids/qwen.pid
+
+sleep 2
+
+# ================================
+# START DRE
+# ================================
+echo "[START] DRE"
+
+/data/data/com.termux/files/home/repos/odin_os/target/release/dre \
+  > /data/data/com.termux/files/home/odin_runtime/logs/dre.log 2>&1 &
+
+echo $! > /data/data/com.termux/files/home/odin_runtime/pids/dre.pid
+
+sleep 2
+
+# ================================
+# VERIFY
+# ================================
+echo
+echo "[VERIFY]"
+
+if ps -p $(cat /data/data/com.termux/files/home/odin_runtime/pids/qwen.pid) > /dev/null
+then
+  echo "[OK] Qwen running"
+else
+  echo "[FAIL] Qwen failed"
+fi
+
+if ps -p $(cat /data/data/com.termux/files/home/odin_runtime/pids/dre.pid) > /dev/null
+then
+  echo "[OK] DRE running"
+else
+  echo "[FAIL] DRE failed"
+fi
+
+echo "===================================="

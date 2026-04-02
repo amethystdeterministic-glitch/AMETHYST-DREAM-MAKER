@@ -1,0 +1,24 @@
+{
+  "pipeline_id": "CDS_PIPELINE_V1",
+  "stages": [
+    "ingest",
+    "window",
+    "detqubit_dispatch",
+    "local_evaluation",
+    "state_accumulation",
+    "checkpoint",
+    "global_collapse",
+    "proof_emit"
+  ],
+  "windowing": {
+    "mode": "sliding",
+    "chunk_size": 64,
+    "window_size": 128,
+    "overlap": 32
+  },
+  "memory_policy": {
+    "full_dataset_load": false,
+    "raw_window_retention": false,
+    "summary_persistence_only": true
+  }
+}

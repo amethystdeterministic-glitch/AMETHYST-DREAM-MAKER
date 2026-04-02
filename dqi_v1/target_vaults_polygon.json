@@ -1,0 +1,1 @@
+{"network": "polygon_pos", "currency": "POL", "vaults": [{"name": "Beefy_QuickSwap_POL-USDC", "address": "0x5757371414417b8c6caad45baef941abc7d3ab32", "strategy": "0x123... (See PolygonScan)", "function": "harvest()", "reward_token": "POL"}, {"name": "Beefy_Aave_POL_Vault", "address": "0xB5C064F955D8e7F38fE0460C556a72987494eE17", "function": "harvest()", "reward_token": "POL"}]}

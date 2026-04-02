@@ -1,0 +1,12 @@
+{
+  "proof_schema": "CDS_WINDOW_PROOF_V1",
+  "fields": [
+    "timestamp_utc",
+    "window_id",
+    "start_offset",
+    "end_offset",
+    "input_hash",
+    "selected",
+    "hypotheses"
+  ]
+}

@@ -1,0 +1,43 @@
+PILGRIM APK PARSE DISCOVERY — HEREDOC-ONLY MODE
+
+OBJECTIVE
+Determine the minimal manifest/build configuration that produces
+a successfully installable APK on the current Android device
+using the existing Termux manual toolchain.
+
+LOCKED CONSTRAINTS
+- keep existing compile/dex/package/assemble/sign pipeline
+- no Gradle
+- no aapt2
+- one variable change per iteration
+- record every outcome
+- no freeform experimentation
+
+CURRENT VERIFIED STATE
+- javac works
+- d8 works
+- aapt packaging works
+- base.apk exists
+- classes.dex exists
+- dex merge into base.apk works
+- signing works
+- install attempt fails with:
+  "There was a problem while parsing the package."
+
+KNOWN PROJECT ROOT
+$HOME/repos/odin_os/amethyst/arm_apk_engine_v6
+
+DISCOVERY RULE
+OBSERVE -> MUTATE ONE VARIABLE -> REBUILD -> INSTALL -> RECORD
+
+FIRST ITERATIONS
+H1 = explicit minimal manifest with application + activity only
+H2 = add launcher intent filter
+H3 = add android:label on application
+H4 = add android:exported on launcher activity
+H5 = test fully qualified activity name
+H6 = test aapt sdk flags only
+
+STOP CONDITION
+First successful install.
+Then freeze immediately.

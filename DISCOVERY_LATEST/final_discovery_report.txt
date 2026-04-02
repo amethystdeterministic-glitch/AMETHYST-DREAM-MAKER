@@ -1,0 +1,218 @@
+====================================
+AMETHYST DISCOVERY REPORT
+====================================
+
+Generated: 2026-03-22T01:04:09.750954+00:00
+Top discoveries analysed: 30
+
+====================================
+TOP DISCOVERIES
+====================================
+
+9430:feature_10 | score=6.8098
+9951:feature_9 | score=6.8042
+1584:feature_4 | score=6.7187
+8697:feature_7 | score=6.5244
+8869:feature_8 | score=6.4962
+2792:feature_1 | score=6.3530
+8880:feature_9 | score=6.3432
+7449:feature_8 | score=6.2268
+5660:feature_5 | score=6.2150
+1532:feature_3 | score=6.1936
+4634:feature_4 | score=6.1934
+9223:feature_8 | score=6.1806
+3501:feature_6 | score=6.1644
+9548:feature_8 | score=6.1502
+1381:feature_1 | score=6.1486
+8899:feature_9 | score=6.1258
+829:feature_2 | score=6.1114
+3282:feature_1 | score=6.0922
+423:feature_2 | score=6.0662
+689:feature_2 | score=6.0530
+2855:feature_3 | score=6.0484
+3362:feature_5 | score=6.0428
+1705:feature_3 | score=6.0136
+428:feature_1 | score=6.0058
+9501:feature_10 | score=6.0042
+289:feature_6 | score=5.8893
+20:feature_10 | score=5.7790
+6688:feature_5 | score=5.7447
+9532:feature_1 | score=5.6493
+6268:feature_1 | score=5.6403
+
+====================================
+EXPLANATION BREAKDOWN
+====================================
+
+DISCOVERY: 9430:feature_10
+score=6.8098
+ANOMALY: z=3.4049
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_7 <-> feature_10 corr=0.8111
+
+DISCOVERY: 9951:feature_9
+score=6.8042
+ANOMALY: z=3.4021
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_8 <-> feature_9 corr=0.8080
+
+DISCOVERY: 1584:feature_4
+score=6.7187
+STRUCTURAL: value=4.4791 (unexpected cluster)
+INTERACTION: feature_4 <-> feature_6 corr=0.8060
+INTERACTION: feature_4 <-> feature_5 corr=0.8039
+
+DISCOVERY: 8697:feature_7
+score=6.5244
+ANOMALY: z=3.2622
+INTERACTION: feature_7 <-> feature_10 corr=0.8111
+INTERACTION: feature_7 <-> feature_8 corr=0.8078
+
+DISCOVERY: 8869:feature_8
+score=6.4962
+ANOMALY: z=3.2481
+INTERACTION: feature_8 <-> feature_10 corr=0.8094
+INTERACTION: feature_8 <-> feature_9 corr=0.8080
+
+DISCOVERY: 2792:feature_1
+score=6.3530
+ANOMALY: z=3.1765
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_7 <-> feature_10 corr=0.8111
+
+DISCOVERY: 8880:feature_9
+score=6.3432
+ANOMALY: z=3.1716
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_8 <-> feature_9 corr=0.8080
+
+DISCOVERY: 7449:feature_8
+score=6.2268
+ANOMALY: z=3.1134
+INTERACTION: feature_8 <-> feature_10 corr=0.8094
+INTERACTION: feature_8 <-> feature_9 corr=0.8080
+
+DISCOVERY: 5660:feature_5
+score=6.2150
+ANOMALY: z=3.1075
+INTERACTION: feature_5 <-> feature_6 corr=0.8059
+INTERACTION: feature_4 <-> feature_5 corr=0.8039
+
+DISCOVERY: 1532:feature_3
+score=6.1936
+ANOMALY: z=3.0968
+INTERACTION: feature_2 <-> feature_3 corr=0.8082
+INTERACTION: feature_1 <-> feature_3 corr=0.8019
+
+DISCOVERY: 4634:feature_4
+score=6.1934
+ANOMALY: z=3.0967
+INTERACTION: feature_4 <-> feature_6 corr=0.8060
+INTERACTION: feature_4 <-> feature_5 corr=0.8039
+
+DISCOVERY: 9223:feature_8
+score=6.1806
+ANOMALY: z=3.0903
+INTERACTION: feature_8 <-> feature_10 corr=0.8094
+INTERACTION: feature_8 <-> feature_9 corr=0.8080
+
+DISCOVERY: 3501:feature_6
+score=6.1644
+ANOMALY: z=3.0822
+INTERACTION: feature_4 <-> feature_6 corr=0.8060
+INTERACTION: feature_5 <-> feature_6 corr=0.8059
+
+DISCOVERY: 9548:feature_8
+score=6.1502
+ANOMALY: z=3.0751
+INTERACTION: feature_8 <-> feature_10 corr=0.8094
+INTERACTION: feature_8 <-> feature_9 corr=0.8080
+
+DISCOVERY: 1381:feature_1
+score=6.1486
+ANOMALY: z=3.0743
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_7 <-> feature_10 corr=0.8111
+
+DISCOVERY: 8899:feature_9
+score=6.1258
+ANOMALY: z=3.0629
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_8 <-> feature_9 corr=0.8080
+
+DISCOVERY: 829:feature_2
+score=6.1114
+ANOMALY: z=3.0557
+INTERACTION: feature_2 <-> feature_3 corr=0.8082
+INTERACTION: feature_1 <-> feature_2 corr=0.8060
+
+DISCOVERY: 3282:feature_1
+score=6.0922
+ANOMALY: z=3.0461
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_7 <-> feature_10 corr=0.8111
+
+DISCOVERY: 423:feature_2
+score=6.0662
+ANOMALY: z=3.0331
+INTERACTION: feature_2 <-> feature_3 corr=0.8082
+INTERACTION: feature_1 <-> feature_2 corr=0.8060
+
+DISCOVERY: 689:feature_2
+score=6.0530
+ANOMALY: z=3.0265
+INTERACTION: feature_2 <-> feature_3 corr=0.8082
+INTERACTION: feature_1 <-> feature_2 corr=0.8060
+
+DISCOVERY: 2855:feature_3
+score=6.0484
+ANOMALY: z=3.0242
+INTERACTION: feature_2 <-> feature_3 corr=0.8082
+INTERACTION: feature_1 <-> feature_3 corr=0.8019
+
+DISCOVERY: 3362:feature_5
+score=6.0428
+ANOMALY: z=3.0214
+INTERACTION: feature_5 <-> feature_6 corr=0.8059
+INTERACTION: feature_4 <-> feature_5 corr=0.8039
+
+DISCOVERY: 1705:feature_3
+score=6.0136
+ANOMALY: z=3.0068
+INTERACTION: feature_2 <-> feature_3 corr=0.8082
+INTERACTION: feature_1 <-> feature_3 corr=0.8019
+
+DISCOVERY: 428:feature_1
+score=6.0058
+ANOMALY: z=3.0029
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_7 <-> feature_10 corr=0.8111
+
+DISCOVERY: 9501:feature_10
+score=6.0042
+ANOMALY: z=3.0021
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_7 <-> feature_10 corr=0.8111
+
+DISCOVERY: 289:feature_6
+score=5.8893
+STRUCTURAL: value=3.9262 (unexpected cluster)
+INTERACTION: feature_4 <-> feature_6 corr=0.8060
+INTERACTION: feature_5 <-> feature_6 corr=0.8059
+
+DISCOVERY: 20:feature_10
+score=5.7790
+STRUCTURAL: value=3.8527 (unexpected cluster)
+INTERACTION: feature_9 <-> feature_10 corr=0.8115
+INTERACTION: feature_7 <-> feature_10 corr=0.8111
+
+DISCOVERY: 6688:feature_5
+score=5.7447
+STRUCTURAL: value=3.8298 (unexpected cluster)
+INTERACTION: feature_5 <-> feature_6 corr=0.8059
+INTERACTION: feature_4 <-> feature_5 corr=0.8039
+
+
+====================================
+END OF REPORT
+====================================

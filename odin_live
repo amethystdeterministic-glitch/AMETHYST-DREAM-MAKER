@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "===================================="
+echo "ODIN LIVE BOOT"
+echo "===================================="
+
+# Step 1 — Core system
+~/repos/odin_os/odin_on
+
+echo "[ODIN] Core system online"
+
+# Step 2 — Small delay to stabilise Qwen
+sleep 2
+
+# Step 3 — Run business layer
+echo "[ODIN] Launching business layer..."
+
+~/repos/odin_os/pilgrimite_v3.sh
+
+echo "===================================="
+echo "ODIN LIVE COMPLETE"
+echo "===================================="

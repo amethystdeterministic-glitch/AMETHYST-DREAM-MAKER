@@ -1,0 +1,37 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -e
+
+echo "===================================="
+echo "ODIN ON — CLEAN BOOT"
+echo "===================================="
+
+BASE=~/repos/odin_os
+
+bash "$BASE/init_runtime.sh"
+
+for NAME in dre captain qwen; do
+  PID_FILE="$BASE/runtime/pids/${NAME}.pid"
+  if [ -f "$PID_FILE" ]; then
+    PID=$(cat "$PID_FILE" 2>/dev/null || true)
+    if [ -n "$PID" ] && ps -p "$PID" > /dev/null 2>&1; then
+      echo "[BLOCK] $NAME already running (PID $PID)"
+      exit 1
+    else
+      rm -f "$PID_FILE"
+      echo "[CLEAN] removed stale PID for $NAME"
+    fi
+  fi
+done
+
+if [ -x "$BASE/target/release/dre" ]; then
+  bash "$BASE/runtime_start.sh" dre "$BASE/target/release/dre"
+elif [ -x "$BASE/core/dre/target/release/dre" ]; then
+  bash "$BASE/runtime_start.sh" dre "$BASE/core/dre/target/release/dre"
+else
+  echo "[ERROR] no dre binary found"
+  exit 1
+fi
+
+echo "===================================="
+echo "STATE: GREEN"
+echo "===================================="

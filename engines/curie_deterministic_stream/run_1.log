@@ -1,0 +1,26 @@
+====================================
+CDS v15 — TEMPORAL MEMORY INFLUENCE
+====================================
+window=0 entropy_agent=("STRUCTURED_SIGNAL", 5)
+window=0 symmetry_agent=("NOISE", 1)
+window=0 anomaly_agent=("COHERENT_ANOMALY", 8)
+window=0 svx_class=MEDIUM_RELATIONAL_COHERENCE svx_score=3
+window=0 collapsed=COHERENT_ANOMALY
+window=0 memory_before anomaly_streak=0 structured_streak=0 noise_streak=0
+window=0 memory_after anomaly_streak=1 structured_streak=0 noise_streak=0
+window=1 entropy_agent=("STRUCTURED_SIGNAL", 5)
+window=1 symmetry_agent=("NOISE", 1)
+window=1 anomaly_agent=("COHERENT_ANOMALY", 8)
+window=1 svx_class=MEDIUM_RELATIONAL_COHERENCE svx_score=3
+window=1 collapsed=COHERENT_ANOMALY
+window=1 memory_before anomaly_streak=1 structured_streak=0 noise_streak=0
+window=1 memory_after anomaly_streak=2 structured_streak=0 noise_streak=0
+====================================
+GLOBAL COLLAPSE
+selected=COHERENT_ANOMALY
+rationale=Anomaly dominated with SVX boost (HIGH_RELATIONAL_COHERENCE) and temporal memory influence
+structured_score=0
+anomaly_score=30
+noise_score=0
+====================================
+CDS COMPLETE

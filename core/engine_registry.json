@@ -1,0 +1,92 @@
+{
+  "core_engines": [
+    {
+      "engine_id": "DRE",
+      "name": "Deterministic Runtime Enforcement",
+      "type": "core",
+      "port": 7878,
+      "process_match": "dre",
+      "required": true
+    },
+    {
+      "engine_id": "DISCOVERY_AUTHORITY",
+      "name": "Deterministic Discovery Authority",
+      "type": "core",
+      "artifact_path": "artifacts/discoveries",
+      "required": true
+    }
+  ],
+
+  "intelligence_engines": [
+    {
+      "engine_id": "QWEN",
+      "name": "Qwen LLM",
+      "type": "llm",
+      "port": 8081,
+      "process_match": "llama-server",
+      "required": true
+    },
+    {
+      "engine_id": "DLE",
+      "name": "Deterministic Linguistic Engine",
+      "type": "linguistic",
+      "artifact_match": "DLE_CONFORMANCE_REPORT.json",
+      "required": true
+    }
+  ],
+
+  "scientific_engines": [
+    {
+      "engine_id": "CANCER_ENGINE",
+      "name": "Cancer Discovery Engine",
+      "type": "medical",
+      "artifact_match": "cancer",
+      "required": false
+    },
+    {
+      "engine_id": "BRCA_ENGINE",
+      "name": "BRCA Analysis Engine",
+      "type": "medical",
+      "artifact_match": "brca",
+      "required": false
+    },
+    {
+      "engine_id": "ALZHEIMERS_ENGINE",
+      "name": "Alzheimer's Analysis Engine",
+      "type": "medical",
+      "artifact_match": "alzheimers",
+      "required": false
+    },
+    {
+      "engine_id": "CURIE_ENGINE",
+      "name": "Curie Scientific Discovery Engine",
+      "type": "scientific",
+      "required": false
+    }
+  ],
+
+  "domain_engines": [
+    {
+      "engine_id": "FRAUD_ENGINE",
+      "name": "Deterministic Fraud Detection Engine",
+      "type": "financial",
+      "artifact_match": "fraud",
+      "required": false
+    },
+    {
+      "engine_id": "BUSINESS_ENGINE",
+      "name": "Deterministic Business Engine",
+      "type": "commercial",
+      "required": false
+    }
+  ],
+
+  "experimental_engines": [
+    {
+      "engine_id": "FLIPPER",
+      "name": "Flipper Transformation Engine",
+      "type": "transform",
+      "required": false
+    }
+  ]
+}

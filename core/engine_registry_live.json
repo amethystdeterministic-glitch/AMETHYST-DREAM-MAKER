@@ -1,0 +1,562 @@
+{
+  "auto_registered": [
+    {
+      "engine_id": "ODIN_OS",
+      "path": "/data/data/com.termux/files/home/repos/odin_os",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "KERNEL",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/kernel",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "CORE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "DRE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core/dre",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "bash /data/data/com.termux/files/home/repos/odin_os/POWER_ON_v2.sh >/data/data/com.termux/files/home/repos/odin_os/artifacts/dre_start.log 2>&1",
+      "health_check": "netstat -tln 2>/dev/null | grep -q \":7878\"",
+      "status": "wired"
+    },
+    {
+      "engine_id": "AIL_KERNEL",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core/pilgrim/modules/ail_kernel",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "ENGINE_REGISTRY",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core/engine_registry",
+      "tier": "DOMAIN",
+      "type": "domain",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "passive"
+    },
+    {
+      "engine_id": "PI_RUNNER",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core/operator/pi_runner",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "bash /data/data/com.termux/files/home/repos/odin_os/core/operator/pi_runner/start.sh",
+      "health_check": "pgrep -f core/operator/pi_runner/start.sh",
+      "status": "wired"
+    },
+    {
+      "engine_id": "SIS",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core/sis",
+      "tier": "INTELLIGENCE",
+      "type": "ai",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "CIM_HEXAD_ENGINE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core/cim_hexad_engine",
+      "tier": "INTELLIGENCE",
+      "type": "ai",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *cim_hexad_engine* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "DANCE_ENGINE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core/dance_engine",
+      "tier": "DOMAIN",
+      "type": "domain",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *dance_engine* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "DATASETS",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core/forensic_banking/datasets",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "RUNTIME",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/core/forensic_banking/datasets/runtime",
+      "tier": "RUNTIME",
+      "type": "infrastructure",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "SUBSYSTEM",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/subsystem",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "DEMO",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/demo",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "HTTPD",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/httpd",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "ORCHESTRATOR",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/orchestrator",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "bash /data/data/com.termux/files/home/repos/odin_os/orchestrator/start.sh",
+      "health_check": "pgrep -f /data/data/com.termux/files/home/repos/odin_os/orchestrator/start.sh",
+      "status": "wired"
+    },
+    {
+      "engine_id": "ODIN_CLI",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/odin_cli",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "passive"
+    },
+    {
+      "engine_id": "AMETHYSTCTL",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethystctl",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "passive"
+    },
+    {
+      "engine_id": "PILGRIM",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/pilgrim",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "PILGRIMCTL",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/pilgrimctl",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "passive"
+    },
+    {
+      "engine_id": "ARTIFACTS",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "passive"
+    },
+    {
+      "engine_id": "RUNTIME",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/runtime",
+      "tier": "RUNTIME",
+      "type": "infrastructure",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "PARALLEL_QUEUES",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/runtime/parallel_queues",
+      "tier": "RUNTIME",
+      "type": "infrastructure",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "VERIFICATION",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/runtime/verification",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "AUDIT",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/audit",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "passive"
+    },
+    {
+      "engine_id": "DLE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/dle",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os/artifacts -name DLE_CONFORMANCE_REPORT.json | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "WEBHUB_RUNTIME",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/webhub_runtime",
+      "tier": "RUNTIME",
+      "type": "infrastructure",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "PILGRIM",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/pilgrim",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "UI_AUDIT",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/ui_audit",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "REGISTRY",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/registry",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "passive"
+    },
+    {
+      "engine_id": "CONNECTORS",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/connectors",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "passive"
+    },
+    {
+      "engine_id": "DANCE_ENGINE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/dance_engine",
+      "tier": "DOMAIN",
+      "type": "domain",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *dance_engine* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "GOVERNOR",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/governor",
+      "tier": "RUNTIME",
+      "type": "infrastructure",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "FORGE_SCHEDULER",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/forge_scheduler",
+      "tier": "RUNTIME",
+      "type": "infrastructure",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "MARKET_DISCOVERY",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/market_test/market_discovery",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "ALZHEIMERS_ENGINE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/alzheimers_engine",
+      "tier": "DOMAIN",
+      "type": "domain",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os/artifacts -path *alzheimers_engine* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "20260321T140231Z",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/freeze/20260321T140231Z",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "BASELINE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/collider_discovery/baseline",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "LOGS",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/collider_discovery/logs",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "HIGHRES",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/collider_discovery/highres",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "DISCOVERY_PACK",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/collider_discovery/discovery_pack",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "ANALYSIS",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/collider_discovery/analysis",
+      "tier": "INTELLIGENCE",
+      "type": "ai",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "CLEAR_BOX_DISCOVERY",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/artifacts/clear_box_discovery",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "MISSION_CONSOLE_V1",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/mission_console_v1",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "RUNTIME",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/runtime",
+      "tier": "RUNTIME",
+      "type": "infrastructure",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "APP",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/android/pilgrim_mobile_app/app",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "APP",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/android/joe_mobile_app/app",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "APP",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/android_templates/pilgrim_mobile_template/app",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "WALES_FLOOD",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/engines/wales_flood",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "ENLIGHT_CLI",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/engines/enlight_cli",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "SRC",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/engines/enlight_cli/src",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "FORGE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/forge",
+      "tier": "FACTORY",
+      "type": "build",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    },
+    {
+      "engine_id": "APK_ENGINE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/apk_engine",
+      "tier": "DOMAIN",
+      "type": "domain",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *apk_engine* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "APK_ENGINE_V2",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/apk_engine_v2",
+      "tier": "DOMAIN",
+      "type": "domain",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *apk_engine_v2* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "ARM_APK_ENGINE",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/arm_apk_engine",
+      "tier": "DOMAIN",
+      "type": "domain",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *arm_apk_engine | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "PILGRIM_ANDROID_ENGINE_V1",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/pilgrim_android_engine_v1",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *pilgrim_android_engine_v1* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "PILGRIM_ANDROID_ENGINE_V2",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/pilgrim_android_engine_v2",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *pilgrim_android_engine_v2* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "PILGRIM_ANDROID_ENGINE_V3",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/pilgrim_android_engine_v3",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *pilgrim_android_engine_v3* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "PILGRIM_ANDROID_ENGINE_V4",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/pilgrim_android_engine_v4",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *pilgrim_android_engine_v4* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "PILGRIM_ANDROID_ENGINE_V5",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/pilgrim_android_engine_v5",
+      "tier": "CORE",
+      "type": "core",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *pilgrim_android_engine_v5* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "ARM_APK_ENGINE_V6",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/amethyst/arm_apk_engine_v6",
+      "tier": "DOMAIN",
+      "type": "domain",
+      "start_cmd": "",
+      "health_check": "find /data/data/com.termux/files/home/repos/odin_os -path *arm_apk_engine_v6* | grep -q .",
+      "status": "artifact-backed"
+    },
+    {
+      "engine_id": "APP",
+      "path": "/data/data/com.termux/files/home/repos/odin_os/forge_app/app",
+      "tier": "MISC",
+      "type": "unknown",
+      "start_cmd": "",
+      "health_check": "",
+      "status": "present"
+    }
+  ]
+}

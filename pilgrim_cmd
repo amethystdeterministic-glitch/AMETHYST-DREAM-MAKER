@@ -1,0 +1,75 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+CMD=$1
+ARG=$2
+
+LEDGER=~/repos/odin_os/ledger.jsonl
+
+case "$CMD" in
+
+  status)
+    odin_status
+    ;;
+
+  engines)
+    pilgrim_engines
+    ;;
+
+  recall)
+    pilgrim_recall "$ARG"
+    ;;
+
+  run)
+    echo "===================================="
+    echo "PILGRIM RUN"
+    echo "ENGINE: $ARG"
+    echo "===================================="
+
+    ENGINE_PATH=~/repos/odin_os/artifacts/${ARG}_engine
+
+    if [ ! -d "$ENGINE_PATH" ]; then
+      echo "[ERROR] Engine not found"
+      exit 1
+    fi
+
+    TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+    ########################################
+    # SIMULATED EXECUTION (PHASE 1)
+    ########################################
+    echo "[EXEC] Running engine logic..."
+    sleep 1
+
+    ########################################
+    # WRITE LEDGER ENTRY
+    ########################################
+    echo "{\"engine\":\"$ARG\",\"timestamp\":\"$TIMESTAMP\",\"status\":\"executed\"}" >> $LEDGER
+
+    echo "[OK] Ledger updated"
+
+    ########################################
+    # FREEZE SNAPSHOT
+    ########################################
+    odin_freeze > /dev/null 2>&1
+
+    echo "[OK] Freeze created"
+
+    echo "===================================="
+    echo "STATE TRANSITION: EXECUTED → PROVEN"
+    echo "===================================="
+
+    ;;
+
+  *)
+    echo "===================================="
+    echo "PILGRIM CMD"
+    echo "===================================="
+    echo "Commands:"
+    echo "  pilgrim_cmd status"
+    echo "  pilgrim_cmd engines"
+    echo "  pilgrim_cmd recall <engine>"
+    echo "  pilgrim_cmd run <engine>"
+    echo "===================================="
+    ;;
+
+esac

@@ -1,0 +1,34 @@
+import time
+import hashlib
+
+def _stable_score(text):
+    h = hashlib.sha256(text.encode()).hexdigest()
+    return int(h[:8], 16) % 100
+
+def _make_branch(label, content):
+    return {
+        "label": label,
+        "content": content,
+        "score": _stable_score(content)
+    }
+
+def dqi_engine_v1(input_text):
+    # Deterministic branch generation
+    branches = [
+        _make_branch("governance_path", f"Apply governance analysis to: {input_text}"),
+        _make_branch("risk_path", f"Apply risk assessment to: {input_text}"),
+        _make_branch("execution_path", f"Create execution plan for: {input_text}")
+    ]
+
+    # Collapse = highest score wins
+    selected = max(branches, key=lambda b: b["score"])
+
+    return {
+        "ts": int(time.time()),
+        "engine": "dqi_engine_v1",
+        "input": input_text,
+        "decision": "collapse",
+        "branches": branches,
+        "selected": selected["label"],
+        "output": selected["content"]
+    }

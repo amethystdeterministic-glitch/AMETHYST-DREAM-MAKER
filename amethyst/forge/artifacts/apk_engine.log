@@ -1,0 +1,32 @@
+========================================
+APK ENGINE RUN Thu Mar 19 04:04:17 GMT 2026
+[STEP] Testing toolchain
+[RUN] /data/data/com.termux/files/home/repos/odin_os/amethyst/forge/tools/build-tools/34.0.0/aapt 
+./apk_engine_v1.sh: line 16: /data/data/com.termux/files/home/repos/odin_os/amethyst/forge/tools/build-tools/34.0.0/aapt: cannot execute binary file: Exec format error
+[FAIL] /data/data/com.termux/files/home/repos/odin_os/amethyst/forge/tools/build-tools/34.0.0/aapt exit=126
+[DETECT] x86 binary on ARM system
+[ACTION] mark for emulation or replacement
+========================================
+APK ENGINE V3 RUN Thu Mar 19 04:07:43 GMT 2026
+[STEP] Toolchain probe
+[RUN] /data/data/com.termux/files/home/repos/odin_os/amethyst/forge/tools/build-tools/34.0.0/aapt
+./apk_engine_v3.sh: line 16: /data/data/com.termux/files/home/repos/odin_os/amethyst/forge/tools/build-tools/34.0.0/aapt: cannot execute binary file: Exec format error
+[FAIL] /data/data/com.termux/files/home/repos/odin_os/amethyst/forge/tools/build-tools/34.0.0/aapt
+[DETECT] incompatible x86 tool
+[DECISION] switch to alternative pipeline
+[MODE] NORMAL
+[COMPLETE]
+========================================
+========================================
+APK ENGINE V3 RUN Thu Mar 19 04:08:35 GMT 2026
+[STEP] Toolchain probe
+[RUN] /data/data/com.termux/files/home/repos/odin_os/amethyst/forge/tools/build-tools/34.0.0/aapt
+./apk_engine_v3.sh: line 21: /data/data/com.termux/files/home/repos/odin_os/amethyst/forge/tools/build-tools/34.0.0/aapt: cannot execute binary file: Exec format error
+[FAIL] /data/data/com.termux/files/home/repos/odin_os/amethyst/forge/tools/build-tools/34.0.0/aapt
+[DETECT] incompatible x86 tool
+[DECISION] switch to alternative pipeline
+[MODE] ALT_PIPELINE
+[ACTION] Switching to non-native build strategy
+[RESULT] stub build created
+[COMPLETE]
+========================================

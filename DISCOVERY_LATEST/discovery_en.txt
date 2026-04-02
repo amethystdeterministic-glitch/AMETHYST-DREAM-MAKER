@@ -1,0 +1,38 @@
+SEGMENTED DISCOVERY
+-------------------
+
+[SEGMENT 1]
+feature_1 | mean=4.972945 | variance=2.069217
+feature_2 | mean=5.007168 | variance=1.931790
+feature_3 | mean=5.003678 | variance=2.047279
+feature_4 | mean=-0.011665 | variance=0.958961
+feature_5 | mean=0.005500 | variance=1.023058
+feature_6 | mean=-0.007316 | variance=1.025170
+feature_7 | mean=0.026100 | variance=1.017859
+feature_8 | mean=-0.002889 | variance=1.018992
+feature_9 | mean=-0.004759 | variance=1.015109
+feature_10 | mean=0.003711 | variance=0.930510
+
+[SEGMENT 2]
+feature_1 | mean=0.008675 | variance=1.039482
+feature_2 | mean=0.017583 | variance=1.046528
+feature_3 | mean=-0.033160 | variance=0.970288
+feature_4 | mean=4.994118 | variance=2.071176
+feature_5 | mean=5.005462 | variance=2.037478
+feature_6 | mean=5.018903 | variance=1.986086
+feature_7 | mean=0.027546 | variance=0.956578
+feature_8 | mean=0.006483 | variance=1.012246
+feature_9 | mean=-0.010535 | variance=0.992016
+feature_10 | mean=0.016713 | variance=0.990917
+
+[SEGMENT 3]
+feature_1 | mean=0.011896 | variance=0.972609
+feature_2 | mean=-0.026073 | variance=0.989476
+feature_3 | mean=0.035594 | variance=1.013110
+feature_4 | mean=0.029475 | variance=0.980488
+feature_5 | mean=-0.003706 | variance=1.003881
+feature_6 | mean=-0.020355 | variance=0.992363
+feature_7 | mean=5.003257 | variance=2.019938
+feature_8 | mean=4.977399 | variance=1.927012
+feature_9 | mean=5.006903 | variance=2.011443
+feature_10 | mean=4.995193 | variance=1.929733

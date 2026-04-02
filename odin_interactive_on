@@ -1,0 +1,39 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+echo "===================================="
+echo "ODIN INTERACTIVE ON"
+echo "===================================="
+
+if command -v odin_on >/dev/null 2>&1; then
+  odin_on
+else
+  echo "[WARN] odin_on command not found"
+fi
+
+"$HOME/repos/odin_os/tools/qwen_start.sh"
+"$HOME/repos/odin_os/tools/captain_start.sh"
+
+echo "[VERIFY]"
+if ss -tuln 2>/dev/null | grep -q ':8081 '; then
+  echo "[OK] qwen 8081"
+else
+  echo "[WARN] qwen not confirmed"
+fi
+
+if ss -tuln 2>/dev/null | grep -q ':7171 '; then
+  echo "[OK] captain 7171"
+else
+  echo "[WARN] captain not confirmed"
+fi
+
+if ps -ef 2>/dev/null | grep -v grep | grep -q "dre"; then
+  echo "[OK] dre process present"
+else
+  echo "[WARN] dre not confirmed"
+fi
+
+echo "===================================="
+echo "LAUNCHING PILGRIM AI"
+echo "===================================="
+exec "$HOME/repos/odin_os/pilgrim.sh"

@@ -1,3 +1,89 @@
 /target
 build_hash_1.txt
 build_hash_2.txt
+amethyst/forge/tmp/
+amethyst/forge/tools/
+# Toolchains / Builds / Large artifacts
+amethyst/forge/tools/
+amethyst/forge/tmp/
+android/pilgrim_mobile_app/android_toolchain/
+amethyst/arm_apk_engine_v6/build/
+target/
+*.zip
+*.apk
+*.idsig
+
+# --- TOOLCHAINS / BUILDS / HEAVY ARTIFACTS ---
+**/android_toolchain/
+**/tools/
+**/tmp/
+**/build/
+target/
+
+# --- FILE TYPES ---
+*.zip
+*.apk
+*.idsig
+*.jar
+
+
+# --- DATA / HEAVY ARTIFACTS ---
+artifacts/
+datasets/
+*.gz
+*.zip
+
+
+# --- DATA / HEAVY ARTIFACTS ---
+artifacts/
+datasets/
+**/*.gz
+**/*.zip
+
+# --- TOOLCHAINS / BUILDS ---
+**/android_toolchain/
+**/tools/
+**/tmp/
+**/build/
+target/
+
+# --- BINARIES ---
+*.apk
+*.idsig
+*.jar
+
+
+# --- ENGINE OUTPUTS ---
+engines/**/bop_v1/
+engines/**/outputs/
+engines/**/results/
+*.csv
+
+
+# --- GLOBAL DATA / OUTPUT BAN ---
+*.csv
+*.tsv
+*.gz
+*.zip
+
+# --- DATA DIRECTORIES ---
+artifacts/
+datasets/
+
+# --- ENGINE OUTPUTS ---
+engines/**/outputs/
+engines/**/results/
+engines/**/bop_v1/
+
+# --- TOOLCHAINS / BUILDS ---
+**/android_toolchain/
+**/tools/
+**/tmp/
+**/build/
+target/
+
+# --- BINARIES ---
+*.apk
+*.idsig
+*.jar
+

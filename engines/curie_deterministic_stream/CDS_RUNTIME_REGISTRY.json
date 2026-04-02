@@ -1,0 +1,17 @@
+{
+  "runtime_id": "CDS_RUNTIME_V1",
+  "supports": [
+    "streaming_ingest",
+    "bounded_memory_processing",
+    "checkpoint_resume_ready",
+    "proof_emission",
+    "detqubit_dispatch",
+    "global_collapse"
+  ],
+  "artifacts": {
+    "proofs": "/data/data/com.termux/files/home/repos/odin_os/artifacts/curie_deterministic_stream/proofs",
+    "state": "/data/data/com.termux/files/home/repos/odin_os/artifacts/curie_deterministic_stream/state",
+    "collapse": "/data/data/com.termux/files/home/repos/odin_os/artifacts/curie_deterministic_stream/collapse",
+    "runtime": "/data/data/com.termux/files/home/repos/odin_os/artifacts/curie_deterministic_stream/runtime"
+  }
+}

@@ -1,0 +1,9 @@
+[DISCOVERY START]
+[OK] java (java)
+[OK] javac (javac)
+[OK] zip (zip)
+[OK] unzip (unzip)
+[OK] keytool (keytool)
+[OK] openssl (openssl)
+[MISS] busybox (busybox)
+[DISCOVERY COMPLETE]

@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# ====================================
+# AMETHYST cOS — DLE INVOCATION BRIDGE
+# ====================================
+
+INPUT_FILE="$1"
+OUTPUT_FILE="$2"
+
+fail() {
+  echo "[DLE] FAIL: $1"
+  exit 1
+}
+
+[ -f "$INPUT_FILE" ] || fail "Input file missing"
+
+TMP_OUTPUT="${OUTPUT_FILE}.tmp"
+
+echo "[DLE] Routing through ODIN Force Engine..."
+
+# ------------------------------------
+# CALL PILGRIM AI (Qwen under constraint)
+# ------------------------------------
+RESPONSE=$(curl -s http://localhost:8081/completion \
+  -H "Content-Type: application/json" \
+  -d "{
+    \"prompt\": \"Translate the following English text into formal Welsh. Preserve meaning exactly. No summarisation. No interpretation. Deterministic output only:\\n\\n$(cat "$INPUT_FILE")\",
+    \"temperature\": 0,
+    \"top_p\": 0.0,
+    \"max_tokens\": 4096
+  }") || fail "Pilgrim AI call failed"
+
+echo "$RESPONSE" | jq -r '.content' > "$TMP_OUTPUT" || fail "Extraction failed"
+
+# ------------------------------------
+# VALIDATION (D.R.E. ENFORCEMENT)
+# ------------------------------------
+[ -s "$TMP_OUTPUT" ] || fail "Empty output"
+
+mv "$TMP_OUTPUT" "$OUTPUT_FILE"
+
+# ------------------------------------
+# PROOF BUNDLE (MINIMAL)
+# ------------------------------------
+PROOF_DIR="$(dirname "$OUTPUT_FILE")/proof"
+mkdir -p "$PROOF_DIR"
+
+sha256sum "$INPUT_FILE" > "$PROOF_DIR/input.hash"
+sha256sum "$OUTPUT_FILE" > "$PROOF_DIR/output.hash"
+
+echo "[DLE] SUCCESS — Deterministic translation complete"
+

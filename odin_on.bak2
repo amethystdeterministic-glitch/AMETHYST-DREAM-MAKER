@@ -1,0 +1,72 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+echo "===================================="
+echo "ODIN ON — CLEAN BOOT"
+echo "===================================="
+
+# -----------------------------------
+# HANDOVER RESTORE
+# -----------------------------------
+echo "===================================="
+echo "ODIN HANDOVER — RESTORE"
+echo "===================================="
+
+HANDOVER_DIR="$HOME/repos/odin_os/artifacts/handover"
+RUNTIME_DIR="$HOME/repos/odin_os/runtime"
+
+mkdir -p "$RUNTIME_DIR"
+
+LATEST_HANDOVER=$(ls -t "$HANDOVER_DIR"/ODIN_OFF_* 2>/dev/null | head -n 1 || true)
+
+if [ -n "${LATEST_HANDOVER:-}" ] && [ -f "$LATEST_HANDOVER" ]; then
+  echo "[FOUND] $LATEST_HANDOVER"
+  echo "------------------------------------"
+  cat "$LATEST_HANDOVER"
+  echo "------------------------------------"
+
+  cp "$LATEST_HANDOVER" "$RUNTIME_DIR/LAST_HANDOVER.txt"
+  echo "[OK] handover restored"
+else
+  echo "[WARN] no handover found"
+fi
+
+echo "===================================="
+
+# -----------------------------------
+# RUNTIME INIT
+# -----------------------------------
+mkdir -p "$HOME/repos/odin_os/logs"
+mkdir -p "$HOME/repos/odin_os/runtime"
+
+echo "[OK] runtime + logs ready"
+echo "[START] dance"
+bash ~/repos/odin_os/dance_on.sh
+
+echo "[START] qwen"
+bash ~/repos/odin_os/qwen_start.sh
+echo "[START] governed execution path"
+bash ~/repos/odin_os/qwen_dance_dre.sh
+
+
+
+# -----------------------------------
+# START DRE (existing behavior)
+# -----------------------------------
+if command -v dre >/dev/null 2>&1; then
+fi
+
+# -----------------------------------
+# VERIFY (BASIC)
+# -----------------------------------
+echo "[VERIFY]"
+
+if ps aux | grep -v grep | grep -q dre; then
+  echo "[OK] dre alive"
+else
+  echo "[WARN] dre not detected"
+fi
+
+echo "===================================="
+echo "STATE: GREEN"
+echo "===================================="

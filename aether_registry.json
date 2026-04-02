@@ -1,0 +1,32 @@
+[
+  {
+    "id": "webhub",
+    "name": "WebHub",
+    "url": "http://localhost:8080",
+    "type": "internal"
+  },
+  {
+    "id": "dqi",
+    "name": "DQI Live",
+    "url": "http://localhost:9090/dqi_live",
+    "type": "internal"
+  },
+  {
+    "id": "odin",
+    "name": "ODIN Core",
+    "url": "http://localhost:9090/odin_status",
+    "type": "system"
+  },
+  {
+    "id": "forge",
+    "name": "Forge",
+    "url": "http://localhost:9090/forge",
+    "type": "system"
+  },
+  {
+    "id": "pilgrim",
+    "name": "Pilgrim",
+    "url": "http://localhost:9090/pilgrim",
+    "type": "system"
+  }
+]

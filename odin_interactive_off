@@ -1,0 +1,15 @@
+#!/data/data/com.termux/files/usr/bin/bash
+set -euo pipefail
+
+echo "===================================="
+echo "ODIN INTERACTIVE OFF"
+echo "===================================="
+
+"$HOME/repos/odin_os/tools/captain_stop.sh"
+"$HOME/repos/odin_os/tools/qwen_stop.sh"
+
+if command -v odin_off >/dev/null 2>&1; then
+  odin_off
+else
+  echo "[WARN] odin_off command not found"
+fi

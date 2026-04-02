@@ -1,0 +1,5 @@
+{"timestamp":"20260322T084715Z","event":"BRCA_V5_DISCOVERY","study":"AMETHYST-BRCA-01","genes":25,"event_rate_top":0.56,"event_rate_bottom":0.06,"early_death_top":0.24,"early_death_bottom":0.00,"status":"discovery"}
+{"timestamp":"20260322T122825Z","event":"BRCA_V9_2_COHORT_VALIDATED","study":"AMETHYST-BRCA-01","genes":25,"status":"robust_internal_validation"}
+{"timestamp":"20260322T125803Z","event":"BRCA_V11_STRESS_VALIDATED","study":"AMETHYST-BRCA-01","genes":25,"stability":1.04,"status":"highly_resilient"}
+{"timestamp":"20260322T135430Z","event":"BRCA_V12_EXTERNAL_VALIDATED","study":"AMETHYST-BRCA-01","genes":25,"external_genes_found":24,"spread":52,"pam50_overlap":0,"status":"externally_validated_independent_signal"}
+{"timestamp":"20260322T140044Z","event":"BRCA_V13_SUBTYPE_STRATIFIED","study":"AMETHYST-BRCA-01","genes":25,"luminal_spread":32.47,"her2_spread":48.78,"pam50_overlap":0,"status":"subtype_robust"}

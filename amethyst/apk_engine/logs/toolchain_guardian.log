@@ -1,0 +1,9 @@
+[CHECK] apktool
+[CHECK] java
+[CHECK] jarsigner
+[CHECK] keytool
+[CHECK] zip
+[CHECK] dex
+[CHECK] template
+[CHECK] keystore optional
+TOOLCHAIN_GUARDIAN_OK

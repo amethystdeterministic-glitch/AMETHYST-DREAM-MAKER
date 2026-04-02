@@ -1,0 +1,1 @@
+/data/data/com.termux/files/home/repos/odin_os/engines/curie_deterministic_stream/target/release/libcurie_deterministic_stream.rlib: /data/data/com.termux/files/home/repos/odin_os/engines/curie_deterministic_stream/src/lib.rs
